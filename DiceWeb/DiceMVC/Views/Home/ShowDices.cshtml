@@ -1,0 +1,35 @@
+﻿@model DiceMVC.Models.Game
+
+@{
+    ViewData["Title"] = "ShowDices";
+}
+
+<h1>ShowDices</h1>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Kość nr
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Dices)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i=1; i<=5;i++)
+        {
+
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(dice => Model.Dices[i,0])
+                </td>
+            </tr>
+
+        }
+    </tbody>
+</table>
