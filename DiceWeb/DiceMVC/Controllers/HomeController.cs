@@ -37,7 +37,7 @@ namespace DiceMVC.Controllers
             {
                 game.Dices[i, 0] = generator.Next(1, 7);
             }
-            return View();
+            return View(game.Dices);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
