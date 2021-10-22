@@ -1,5 +1,4 @@
-﻿
-@model System.Int32[,]
+﻿@model Game
 
 @{
     ViewData["Title"] = "ShowDices";
@@ -22,12 +21,10 @@
     <tbody>
         @for (int i =0; i<5;i++)
         {
-           
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(dice => Model[i,0])
-
+                        @Model.Dices[i,0]
                     </td>
                 </tr>
             }
