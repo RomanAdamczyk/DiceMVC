@@ -28,16 +28,21 @@ namespace DiceMVC.Controllers
             return View();
         }
         [HttpGet]
-        public IActionResult ShowDices(int count)
+        public IActionResult ShowDices()
         {
-            Game game = new Game();
-            Random generator = new Random();
-            game.Dices = new int[5,2];
-            for (int i=0; i<5; i++)
+            var game = new Game()
+            {
+                Dices = new int[5, 2]
+            };
+
+            var generator = new Random();
+
+            for (int i = 0; i < 5; i++)
             {
                 game.Dices[i, 0] = generator.Next(1, 7);
             }
-            return View(game.Dices);
+
+            return View(game);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
