@@ -1,22 +1,21 @@
-﻿
-@model System.Int32[,]
+﻿@model Game
 
 @{
     ViewData["Title"] = "ShowDices";
 }
 
-<h1>ShowDices</h1>
+<h1>Wartości wyrzuconych kości</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>    
+
 <table class="table">
     <thead>
         <tr>
             <th>
-
+                numer kości
             </th>
-
+            <th>
+                wartość kości
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -26,8 +25,10 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(dice => Model[i,0])
-
+                        @(i + 1)
+                    </td>
+                    <td>
+                        @Model.Dices[i,0]
                     </td>
                 </tr>
             }
