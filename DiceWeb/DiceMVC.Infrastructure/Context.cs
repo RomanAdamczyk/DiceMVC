@@ -23,10 +23,6 @@ namespace DiceMVC.Infrastructure
             builder.Entity<Player>()
                 .HasOne(a => a.PlayerValue).WithOne(b => b.Player)
                 .HasForeignKey<PlayerValue>(e => e.PlayerRef);
-
-            builder.Entity<Player>()
-                .HasOne(a => a.PlayerFreeValue).WithOne(b => b.Player)
-                .HasForeignKey<PlayerFreeValue>(e => e.PlayerRef);
         }
     }
 }

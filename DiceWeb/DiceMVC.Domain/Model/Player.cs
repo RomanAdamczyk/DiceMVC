@@ -12,6 +12,6 @@ namespace DiceMVC.Domain.Model
         public string Name { get; set; }
         public int PlayerValueId { get; set; }
         public virtual PlayerValue PlayerValue { get; set; }
-        public virtual PlayerFreeValue PlayerFreeValue { get; set; }
+
     }
 }
