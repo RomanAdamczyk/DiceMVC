@@ -1,0 +1,120 @@
+﻿@model DiceMVC.Application.ViewModels.Player.PlayerValueForListVm
+
+@{
+    ViewData["Title"] = "ViewPlayerValues";
+}
+
+<h1>ViewPlayerValues</h1>
+
+<div>
+    <h4>PlayerValueForListVm</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Ones)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Ones)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Twos)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Twos)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Threes)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Threes)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Fours)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Fours)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Fives)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Fives)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Sixs)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Sixs)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Bonus)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Bonus)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Triple)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Triple)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Fourfold)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Fourfold)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Full)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Full)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.SmallStraight)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.SmallStraight)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.HighStraight)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.HighStraight)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.General)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.General)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Chance)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Chance)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Total)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Total)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>

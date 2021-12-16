@@ -8,8 +8,13 @@ namespace DiceMVC.Domain.Model
 {
     public class Player
     {
+        public Player()
+        {
+            PlayerValueId = Id;
+        }
         public int Id { get; set; }
         public string Name { get; set; }
+        public int Score { get; set; }
         public int PlayerValueId { get; set; }
         public virtual PlayerValue PlayerValue { get; set; }
 

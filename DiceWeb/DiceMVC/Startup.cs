@@ -1,4 +1,8 @@
+using DiceMVC.Application;
+using DiceMVC.Application.Interfaces;
+using DiceMVC.Domain.Interface;
 using DiceMVC.Infrastructure;
+using DiceMVC.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -34,6 +38,9 @@ namespace DiceMVC
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<Context>();
+
+            services.AddApplication();
+            services.AddInfrastructure();
             services.AddControllersWithViews();
         }
 

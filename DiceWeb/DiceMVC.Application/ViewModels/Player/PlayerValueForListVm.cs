@@ -1,23 +1,17 @@
-﻿using System;
+﻿using AutoMapper;
+using DiceMVC.Application.Mapping;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DiceMVC.Domain.Model
+namespace DiceMVC.Application.ViewModels.Player
 {
-    public class PlayerValue
+    public class PlayerValueForListVm : IMapFrom<DiceMVC.Domain.Model.PlayerValue>
     {
-        public PlayerValue()
-        {
-
-        }
-        public PlayerValue(int playerId)
-        {
-            PlayerRef = playerId;
-            
-        }
         public int Id { get; set; }
+        public string Name { get; set; }
         public int Ones { get; set; }
         public int Twos { get; set; }
         public int Threes { get; set; }
@@ -32,7 +26,13 @@ namespace DiceMVC.Domain.Model
         public int HighStraight { get; set; }
         public int General { get; set; }
         public int Chance { get; set; }
-        public int PlayerRef { get; set; }
-        public virtual Player Player { get; set; }
+        public int Total { get; set; }
+        public void Mapping(Profile profile)
+        {
+            profile.CreateMap<DiceMVC.Domain.Model.PlayerValue, PlayerValueForListVm>()
+                .ForMember(s => s.Name, opt => opt.MapFrom(d => d.Player.Name))
+                .ForMember(s => s.Total, opt => opt.MapFrom(d => 0));
+        }
+
     }
 }

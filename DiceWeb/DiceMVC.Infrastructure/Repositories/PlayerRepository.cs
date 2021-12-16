@@ -15,7 +15,19 @@ namespace DiceMVC.Infrastructure.Repositories
         {
             _context = context;
         }
-        public PlayerValue GetPlayerValueById(int playerId)
+        public int AddPlayer(Player player)
+        {
+           
+            _context.Players.Add(player);
+          
+            return player.Id;
+        }
+        public void AddPlayerValue(PlayerValue playerValue)
+        {
+            _context.PlayerValues.Add(playerValue);
+            _context.SaveChanges();
+        }
+        public PlayerValue GetPlayerValue(int playerId)
         {
             var playerValue = _context.PlayerValues.FirstOrDefault(i => i.Id == playerId);
             return playerValue;
