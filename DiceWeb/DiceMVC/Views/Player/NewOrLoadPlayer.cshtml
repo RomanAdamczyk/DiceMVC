@@ -1,0 +1,37 @@
+﻿@model DiceMVC.Application.ViewModels.Player.NewOrLoadPlayerVm
+
+@{
+    ViewData["Title"] = "NewOrLoadPlayer";
+}
+
+<h1>NewOrLoadPlayer</h1>
+@Model.IdGame
+<h4>NewOrLoadPlayerVm</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="NewOrLoadPlayer">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input type="hidden" asp-for="IdGame" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="TurnNo" class="form-control" />
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input type="radio" class="form-check-input" value = "New" asp-for="CreateNewPlayer" /> Nowy Gracz<br />
+                    <input type="radio" class="form-check-input" value= "Load" asp-for="CreateNewPlayer" /> Wczytaj Gracza
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Dalej" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

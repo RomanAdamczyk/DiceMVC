@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DiceMVC.Infrastructure.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class IninitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -47,13 +47,28 @@ namespace DiceMVC.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Games",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CurrentPlayerId = table.Column<int>(type: "int", nullable: false),
+                    CurrentRound = table.Column<int>(type: "int", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    PlayerCount = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Games", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Players",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PlayerValueId = table.Column<int>(type: "int", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -167,34 +182,158 @@ namespace DiceMVC.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Dices",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Dice1 = table.Column<int>(type: "int", nullable: false),
+                    Dice1IsBlocked = table.Column<bool>(type: "bit", nullable: false),
+                    Dice2 = table.Column<int>(type: "int", nullable: false),
+                    Dice2IsBlocked = table.Column<bool>(type: "bit", nullable: false),
+                    Dice3 = table.Column<int>(type: "int", nullable: false),
+                    Dice3IsBlocked = table.Column<bool>(type: "bit", nullable: false),
+                    Dice4 = table.Column<int>(type: "int", nullable: false),
+                    Dice4IsBlocked = table.Column<bool>(type: "bit", nullable: false),
+                    Dice5 = table.Column<int>(type: "int", nullable: false),
+                    Dice5IsBlocked = table.Column<bool>(type: "bit", nullable: false),
+                    Lap = table.Column<int>(type: "int", nullable: false),
+                    Round = table.Column<int>(type: "int", nullable: false),
+                    GameId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Dices", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Dices_Games_GameId",
+                        column: x => x.GameId,
+                        principalTable: "Games",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "GamePlayer",
+                columns: table => new
+                {
+                    GameId = table.Column<int>(type: "int", nullable: false),
+                    PlayerId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GamePlayer", x => new { x.GameId, x.PlayerId });
+                    table.ForeignKey(
+                        name: "FK_GamePlayer_Games_GameId",
+                        column: x => x.GameId,
+                        principalTable: "Games",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_GamePlayer_Players_PlayerId",
+                        column: x => x.PlayerId,
+                        principalTable: "Players",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PlayerStatistics",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    GamesCount = table.Column<int>(type: "int", nullable: false),
+                    TotalScore = table.Column<int>(type: "int", nullable: false),
+                    TotalWins = table.Column<int>(type: "int", nullable: false),
+                    PlayerRef = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PlayerStatistics", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PlayerStatistics_Players_PlayerRef",
+                        column: x => x.PlayerRef,
+                        principalTable: "Players",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PlayersTurns",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TurnNo = table.Column<int>(type: "int", nullable: false),
+                    GameId = table.Column<int>(type: "int", nullable: false),
+                    PlayerId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PlayersTurns", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PlayersTurns_Games_GameId",
+                        column: x => x.GameId,
+                        principalTable: "Games",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PlayersTurns_Players_PlayerId",
+                        column: x => x.PlayerId,
+                        principalTable: "Players",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PlayerValues",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Ones = table.Column<int>(type: "int", nullable: false),
+                    OnesIsUsed = table.Column<bool>(type: "bit", nullable: false),
                     Twos = table.Column<int>(type: "int", nullable: false),
+                    TwosIsUsed = table.Column<bool>(type: "bit", nullable: false),
                     Threes = table.Column<int>(type: "int", nullable: false),
+                    ThreesIsUsed = table.Column<bool>(type: "bit", nullable: false),
                     Fours = table.Column<int>(type: "int", nullable: false),
+                    FoursIsUsed = table.Column<bool>(type: "bit", nullable: false),
                     Fives = table.Column<int>(type: "int", nullable: false),
+                    FivesIsUsed = table.Column<bool>(type: "bit", nullable: false),
                     Sixs = table.Column<int>(type: "int", nullable: false),
+                    SixsIsUsed = table.Column<bool>(type: "bit", nullable: false),
                     Bonus = table.Column<int>(type: "int", nullable: false),
                     Triple = table.Column<int>(type: "int", nullable: false),
+                    TripleIsUsed = table.Column<bool>(type: "bit", nullable: false),
                     Fourfold = table.Column<int>(type: "int", nullable: false),
+                    FourfoldIsUsed = table.Column<bool>(type: "bit", nullable: false),
                     Full = table.Column<int>(type: "int", nullable: false),
+                    FullIsUsed = table.Column<bool>(type: "bit", nullable: false),
                     SmallStraight = table.Column<int>(type: "int", nullable: false),
+                    SmallStraightIsUsed = table.Column<bool>(type: "bit", nullable: false),
                     HighStraight = table.Column<int>(type: "int", nullable: false),
+                    HighStraightIsUsed = table.Column<bool>(type: "bit", nullable: false),
                     General = table.Column<int>(type: "int", nullable: false),
+                    GeneralIsUsed = table.Column<bool>(type: "bit", nullable: false),
                     Chance = table.Column<int>(type: "int", nullable: false),
+                    ChanceIsUsed = table.Column<bool>(type: "bit", nullable: false),
                     Total = table.Column<int>(type: "int", nullable: false),
-                    PlayerRef = table.Column<int>(type: "int", nullable: false)
+                    PlayerId = table.Column<int>(type: "int", nullable: false),
+                    GameId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PlayerValues", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PlayerValues_Players_PlayerRef",
-                        column: x => x.PlayerRef,
+                        name: "FK_PlayerValues_Games_GameId",
+                        column: x => x.GameId,
+                        principalTable: "Games",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PlayerValues_Players_PlayerId",
+                        column: x => x.PlayerId,
                         principalTable: "Players",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -240,10 +379,40 @@ namespace DiceMVC.Infrastructure.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PlayerValues_PlayerRef",
-                table: "PlayerValues",
+                name: "IX_Dices_GameId",
+                table: "Dices",
+                column: "GameId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GamePlayer_PlayerId",
+                table: "GamePlayer",
+                column: "PlayerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PlayerStatistics_PlayerRef",
+                table: "PlayerStatistics",
                 column: "PlayerRef",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PlayersTurns_GameId",
+                table: "PlayersTurns",
+                column: "GameId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PlayersTurns_PlayerId",
+                table: "PlayersTurns",
+                column: "PlayerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PlayerValues_GameId",
+                table: "PlayerValues",
+                column: "GameId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PlayerValues_PlayerId",
+                table: "PlayerValues",
+                column: "PlayerId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -264,6 +433,18 @@ namespace DiceMVC.Infrastructure.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Dices");
+
+            migrationBuilder.DropTable(
+                name: "GamePlayer");
+
+            migrationBuilder.DropTable(
+                name: "PlayerStatistics");
+
+            migrationBuilder.DropTable(
+                name: "PlayersTurns");
+
+            migrationBuilder.DropTable(
                 name: "PlayerValues");
 
             migrationBuilder.DropTable(
@@ -271,6 +452,9 @@ namespace DiceMVC.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Games");
 
             migrationBuilder.DropTable(
                 name: "Players");

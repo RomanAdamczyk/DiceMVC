@@ -13,6 +13,12 @@ namespace DiceMVC.Infrastructure
     {
         public DbSet<PlayerValue> PlayerValues { get; set; }
         public DbSet<Player> Players { get; set; }
+        public DbSet<PlayerStatistic> PlayerStatistics { get; set; }
+        public DbSet<Dices> Dices { get; set; }
+        public DbSet<Game> Games { get; set; }
+        public DbSet<GamePlayer> GamePlayer { get; set; }
+        public DbSet<PlayersTurn> PlayersTurns { get; set; }
+
         public  Context(DbContextOptions options): base(options)
         {
         }
@@ -21,8 +27,22 @@ namespace DiceMVC.Infrastructure
             base.OnModelCreating(builder);
 
             builder.Entity<Player>()
-                .HasOne(a => a.PlayerValue).WithOne(b => b.Player)
-                .HasForeignKey<PlayerValue>(e => e.PlayerRef);
+               .HasOne(a => a.PlayerStatistic).WithOne(b => b.Player)
+               .HasForeignKey<PlayerStatistic>(e => e.PlayerRef);
+
+            builder.Entity<GamePlayer>()
+                .HasKey(gp => new { gp.GameId, gp.PlayerId });
+
+            builder.Entity<GamePlayer>()
+                .HasOne<Game>(gp => gp.Game)
+                .WithMany(g => g.GamePlayers)
+                .HasForeignKey(gp => gp.GameId);
+
+            builder.Entity<GamePlayer>()
+                .HasOne<Player>(gp => gp.Player)
+                .WithMany(p => p.GamePlayers)
+                .HasForeignKey(gp => gp.PlayerId);
+
         }
     }
 }

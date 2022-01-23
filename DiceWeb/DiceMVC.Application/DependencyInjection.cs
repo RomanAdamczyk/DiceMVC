@@ -1,5 +1,6 @@
 ﻿using DiceMVC.Application.Interfaces;
 using DiceMVC.Application.Services;
+using DiceMVC.Domain.Interface;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,8 @@ namespace DiceMVC.Application
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
             services.AddTransient<IPlayerService, PlayerService>();
+            services.AddTransient<IGameService, GameService>();
+
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             return services;
         }

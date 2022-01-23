@@ -23,17 +23,56 @@ namespace DiceMVC.Controllers
         //    return View(model);
         //}
         [HttpGet]
-        public IActionResult AddPlayer()
+        public IActionResult AddNewPlayer(int idGame)
         {
-            return View(new NewPlayerVm());
+            return View(new NewPlayerVm(idGame));
         }
         [HttpPost]
-        public IActionResult AddPlayer(NewPlayerVm model)
+        public IActionResult AddNewPlayer(NewPlayerVm model)
         {
-            var id = _playerService.AddPlayer(model);
-            var playerValue = _playerService.AddPlayerValues(id);
-            return RedirectToAction("ViewPlayerValues");
+            var id = _playerService.AddNewPlayer(model);
+
+            if (model.PlayerCount > model.PlayerNo + 1) 
+                return RedirectToAction("NewOrLoadPlayer", new {idGame = model.GameId });
+            else return RedirectToAction("Game","NewRound");
         }
+        [HttpGet]
+        public IActionResult NewOrLoadPlayer(int idGame)
+        {
+            return View(new NewOrLoadPlayerVm(idGame));
+        }
+        [HttpPost]
+        public IActionResult NewOrLoadPlayer(NewOrLoadPlayerVm model)
+        {
+            var choose = _playerService.NewOrLoadPlayer(model);
+            var idGame = _playerService.GetGameId(model);
+            switch (choose)
+            {
+                case "New":
+                    return RedirectToAction("AddNewPlayer", new { idGame = idGame });
+                    break;
+                case "Load":
+                    return RedirectToAction("LoadPlayer", new { gameId = idGame });
+                    break;
+                default:
+                    return RedirectToAction("");
+            }            
+        }
+        [HttpGet]
+        public IActionResult LoadPlayer(int gameId)
+        {
+            var model = _playerService.GetPlayersForList();
+            model.GameId = gameId;
+            return View(model);
+        }
+        [HttpPost]
+        public IActionResult LoadPlayer(ListOfPlayersVm model)
+        {
+            string test = model.ChoosePlayer;
+            _playerService.AddPlayerToGame(Int32.Parse(test), model.GameId);
+            return RedirectToAction("NewOrLoadPlayer", new { idGame = model.GameId });
+        }
+
         [HttpGet]
         public IActionResult ViewPlayerValues()
         {

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DiceMVC.Infrastructure.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20211117210636_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20220109194325_IninitialCreate")]
+    partial class IninitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,98 @@ namespace DiceMVC.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.11")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("DiceMVC.Domain.Model.Dices", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Dice1")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Dice1IsBlocked")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Dice2")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Dice2IsBlocked")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Dice3")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Dice3IsBlocked")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Dice4")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Dice4IsBlocked")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Dice5")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Dice5IsBlocked")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("GameId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Lap")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Round")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GameId");
+
+                    b.ToTable("Dices");
+                });
+
+            modelBuilder.Entity("DiceMVC.Domain.Model.Game", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CurrentPlayerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CurrentRound")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("PlayerCount")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Games");
+                });
+
+            modelBuilder.Entity("DiceMVC.Domain.Model.GamePlayer", b =>
+                {
+                    b.Property<int>("GameId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PlayerId")
+                        .HasColumnType("int");
+
+                    b.HasKey("GameId", "PlayerId");
+
+                    b.HasIndex("PlayerId");
+
+                    b.ToTable("GamePlayer");
+                });
 
             modelBuilder.Entity("DiceMVC.Domain.Model.Player", b =>
                 {
@@ -31,12 +123,36 @@ namespace DiceMVC.Infrastructure.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PlayerValueId")
+                    b.HasKey("Id");
+
+                    b.ToTable("Players");
+                });
+
+            modelBuilder.Entity("DiceMVC.Domain.Model.PlayerStatistic", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("GamesCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PlayerRef")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalScore")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalWins")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Players");
+                    b.HasIndex("PlayerRef")
+                        .IsUnique();
+
+                    b.ToTable("PlayerStatistics");
                 });
 
             modelBuilder.Entity("DiceMVC.Domain.Model.PlayerValue", b =>
@@ -52,38 +168,74 @@ namespace DiceMVC.Infrastructure.Migrations
                     b.Property<int>("Chance")
                         .HasColumnType("int");
 
+                    b.Property<bool>("ChanceIsUsed")
+                        .HasColumnType("bit");
+
                     b.Property<int>("Fives")
                         .HasColumnType("int");
+
+                    b.Property<bool>("FivesIsUsed")
+                        .HasColumnType("bit");
 
                     b.Property<int>("Fourfold")
                         .HasColumnType("int");
 
+                    b.Property<bool>("FourfoldIsUsed")
+                        .HasColumnType("bit");
+
                     b.Property<int>("Fours")
                         .HasColumnType("int");
 
+                    b.Property<bool>("FoursIsUsed")
+                        .HasColumnType("bit");
+
                     b.Property<int>("Full")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("FullIsUsed")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("GameId")
                         .HasColumnType("int");
 
                     b.Property<int>("General")
                         .HasColumnType("int");
 
+                    b.Property<bool>("GeneralIsUsed")
+                        .HasColumnType("bit");
+
                     b.Property<int>("HighStraight")
                         .HasColumnType("int");
+
+                    b.Property<bool>("HighStraightIsUsed")
+                        .HasColumnType("bit");
 
                     b.Property<int>("Ones")
                         .HasColumnType("int");
 
-                    b.Property<int>("PlayerRef")
+                    b.Property<bool>("OnesIsUsed")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("PlayerId")
                         .HasColumnType("int");
 
                     b.Property<int>("Sixs")
                         .HasColumnType("int");
 
+                    b.Property<bool>("SixsIsUsed")
+                        .HasColumnType("bit");
+
                     b.Property<int>("SmallStraight")
                         .HasColumnType("int");
 
+                    b.Property<bool>("SmallStraightIsUsed")
+                        .HasColumnType("bit");
+
                     b.Property<int>("Threes")
                         .HasColumnType("int");
+
+                    b.Property<bool>("ThreesIsUsed")
+                        .HasColumnType("bit");
 
                     b.Property<int>("Total")
                         .HasColumnType("int");
@@ -91,15 +243,47 @@ namespace DiceMVC.Infrastructure.Migrations
                     b.Property<int>("Triple")
                         .HasColumnType("int");
 
+                    b.Property<bool>("TripleIsUsed")
+                        .HasColumnType("bit");
+
                     b.Property<int>("Twos")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("TwosIsUsed")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GameId");
+
+                    b.HasIndex("PlayerId");
+
+                    b.ToTable("PlayerValues");
+                });
+
+            modelBuilder.Entity("DiceMVC.Domain.Model.PlayersTurn", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("GameId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PlayerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TurnNo")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PlayerRef")
-                        .IsUnique();
+                    b.HasIndex("GameId");
 
-                    b.ToTable("PlayerValues");
+                    b.HasIndex("PlayerId");
+
+                    b.ToTable("PlayersTurns");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -302,13 +486,81 @@ namespace DiceMVC.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("DiceMVC.Domain.Model.PlayerValue", b =>
+            modelBuilder.Entity("DiceMVC.Domain.Model.Dices", b =>
                 {
-                    b.HasOne("DiceMVC.Domain.Model.Player", "Player")
-                        .WithOne("PlayerValue")
-                        .HasForeignKey("DiceMVC.Domain.Model.PlayerValue", "PlayerRef")
+                    b.HasOne("DiceMVC.Domain.Model.Game", "Game")
+                        .WithMany("Dices")
+                        .HasForeignKey("GameId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Game");
+                });
+
+            modelBuilder.Entity("DiceMVC.Domain.Model.GamePlayer", b =>
+                {
+                    b.HasOne("DiceMVC.Domain.Model.Game", "Game")
+                        .WithMany("GamePlayers")
+                        .HasForeignKey("GameId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DiceMVC.Domain.Model.Player", "Player")
+                        .WithMany("GamePlayers")
+                        .HasForeignKey("PlayerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Game");
+
+                    b.Navigation("Player");
+                });
+
+            modelBuilder.Entity("DiceMVC.Domain.Model.PlayerStatistic", b =>
+                {
+                    b.HasOne("DiceMVC.Domain.Model.Player", "Player")
+                        .WithOne("PlayerStatistic")
+                        .HasForeignKey("DiceMVC.Domain.Model.PlayerStatistic", "PlayerRef")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Player");
+                });
+
+            modelBuilder.Entity("DiceMVC.Domain.Model.PlayerValue", b =>
+                {
+                    b.HasOne("DiceMVC.Domain.Model.Game", "Game")
+                        .WithMany("PlayerValues")
+                        .HasForeignKey("GameId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DiceMVC.Domain.Model.Player", "Player")
+                        .WithMany("PlayerValues")
+                        .HasForeignKey("PlayerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Game");
+
+                    b.Navigation("Player");
+                });
+
+            modelBuilder.Entity("DiceMVC.Domain.Model.PlayersTurn", b =>
+                {
+                    b.HasOne("DiceMVC.Domain.Model.Game", "Game")
+                        .WithMany("PlayersTurns")
+                        .HasForeignKey("GameId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DiceMVC.Domain.Model.Player", "Player")
+                        .WithMany("PlayersTurns")
+                        .HasForeignKey("PlayerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Game");
 
                     b.Navigation("Player");
                 });
@@ -364,9 +616,26 @@ namespace DiceMVC.Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("DiceMVC.Domain.Model.Game", b =>
+                {
+                    b.Navigation("Dices");
+
+                    b.Navigation("GamePlayers");
+
+                    b.Navigation("PlayersTurns");
+
+                    b.Navigation("PlayerValues");
+                });
+
             modelBuilder.Entity("DiceMVC.Domain.Model.Player", b =>
                 {
-                    b.Navigation("PlayerValue");
+                    b.Navigation("GamePlayers");
+
+                    b.Navigation("PlayerStatistic");
+
+                    b.Navigation("PlayersTurns");
+
+                    b.Navigation("PlayerValues");
                 });
 #pragma warning restore 612, 618
         }

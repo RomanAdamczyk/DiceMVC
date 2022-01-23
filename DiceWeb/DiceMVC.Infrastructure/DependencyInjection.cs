@@ -1,4 +1,6 @@
-﻿using DiceMVC.Domain.Interface;
+﻿using DiceMVC.Application.Interfaces;
+using DiceMVC.Application.Services;
+using DiceMVC.Domain.Interface;
 using DiceMVC.Infrastructure.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -14,6 +16,7 @@ namespace DiceMVC.Infrastructure
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
             services.AddTransient<IPlayerRepository, PlayerRepository>();
+            services.AddTransient<IGameRepository, GameRepository>();
             return services;
         }
     }

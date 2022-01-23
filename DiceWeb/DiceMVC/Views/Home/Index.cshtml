@@ -3,6 +3,14 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Witaj w grze w kości</h1>
+    <p>wybierz odpowiednią opcję</p>
 </div>
+<form>
+    <div class="text-center">
+        @Html.ActionLink("Nowa gra", "GetPlayersCount", "Game")<br />
+        @Html.ActionLink("Wczytaj zapisaną grę", "", "")<br />
+        @Html.ActionLink("Instrukcje", "", "")<br /> 
+    </div>
+</form>
+

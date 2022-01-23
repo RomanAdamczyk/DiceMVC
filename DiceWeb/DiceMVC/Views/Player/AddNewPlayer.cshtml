@@ -1,20 +1,20 @@
 ﻿@model DiceMVC.Application.ViewModels.Player.NewPlayerVm
 
 @{
-    ViewData["Title"] = "AddPlayer";
+    ViewData["Title"] = "AddNewPlayer";
 }
 
-<h1>AddPlayer</h1>
+<h1>AddNewPlayer</h1>
 
 <h4>NewPlayerVm</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="AddPlayer">
+        <form asp-action="AddNewPlayer">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
            
                 <input type="hidden" asp-for="Id" class="form-control" />
-                
+                <input type="hidden" asp-for="GameId" class="form-control"/>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />

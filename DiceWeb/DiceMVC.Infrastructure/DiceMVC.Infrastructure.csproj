@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DiceMVC.Application\DiceMVC.Application.csproj" />
     <ProjectReference Include="..\DiceMVC.Domain\DiceMVC.Domain.csproj" />
   </ItemGroup>
 

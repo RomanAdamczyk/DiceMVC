@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using DiceMVC.Application.Interfaces;
 using DiceMVC.Application.ViewModels.Player;
 using DiceMVC.Domain.Interface;
@@ -15,24 +16,56 @@ namespace DiceMVC.Application.Services
     {
         private readonly IPlayerRepository _playerRepo;
         private readonly IMapper _mapper;
-        public PlayerService(IPlayerRepository playerRepo, IMapper mapper )
+        private readonly IGameRepository _gameRepo;
+        public PlayerService(IPlayerRepository playerRepo, IGameRepository gameRepo, IMapper mapper )
         {
             _playerRepo = playerRepo;
+            _gameRepo = gameRepo;
             _mapper = mapper;
         }
-        public int AddPlayer(NewPlayerVm player)
+        public int AddNewPlayer(NewPlayerVm player)
         {
             var pl = _mapper.Map<Player>(player);
             var id = _playerRepo.AddPlayer(pl);
-            var playerValue = AddPlayerValues(id);
+            var game = _gameRepo.GetGame(player.GameId);
+            //  player = _mapper.Map<NewPlayerVm>(game);
+
+            player.PlayerCount = game.PlayerCount;
+            player.PlayerNo = game.CurrentPlayerId;
+            var playerValue = new PlayerValue(id, player.GameId);
             _playerRepo.AddPlayerValue(playerValue);
+            var playersTurn = new PlayersTurn(player.GameId, id, player.PlayerNo);
+            _playerRepo.AddPlayersTurn(playersTurn);
+            var gamePlayer = new GamePlayer(player.GameId, pl.Id);
+            _playerRepo.AddGamePlayer(gamePlayer);
+            game.CurrentPlayerId += 1;
+            _gameRepo.UpdateGamePlayerNo(game);
+         //   AddPlayerToGame(id, player.GameId);
             return id;
         }
-        public PlayerValue AddPlayerValues(int playerId)
+        public void AddPlayerToGame(int playerId, int gameId)
         {
-            PlayerValue playerValue = new PlayerValue(playerId);
-            return playerValue;
+            var game = _gameRepo.GetGame(gameId);
+            var playerValue = new PlayerValue(playerId, gameId);
+            _playerRepo.AddPlayerValue(playerValue);
+            var playersTurn = new PlayersTurn(gameId, playerId, game.CurrentPlayerId);
+            _playerRepo.AddPlayersTurn(playersTurn);
+            var gamePlayer = new GamePlayer(gameId, playerId);
+            _playerRepo.AddGamePlayer(gamePlayer);
+            game.CurrentPlayerId += 1;
+            _gameRepo.UpdateGamePlayerNo(game);
+
         }
+        //public PlayerValue AddPlayerValues(int playerId, int gameId)
+        //{
+        //    PlayerValue playerValue = new PlayerValue(playerId, gameId);
+        //    return playerValue;
+        //}
+        //public PlayersTurn AddPlayersTurns(int gameId, int playerId, int turnNo)
+        //{
+        //    PlayersTurn playersTurn = new PlayersTurn(gameId, playerId, turnNo);
+        //    return playersTurn;
+        //}
 
         public PlayerValueForListVm ShowPlayerValues(int playerId)
         {
@@ -40,5 +73,30 @@ namespace DiceMVC.Application.Services
             var playerVm = _mapper.Map<PlayerValueForListVm>(player);
             return playerVm;
         }
+        public string NewOrLoadPlayer(NewOrLoadPlayerVm newOrLoadPlayerVm)
+        {
+            return newOrLoadPlayerVm.CreateNewPlayer;
+        }
+        public int GetGameId(NewOrLoadPlayerVm newOrLoadPlayerVm)
+        {
+            return newOrLoadPlayerVm.IdGame;
+        }
+        public ListOfPlayersVm GetPlayersForList()
+        {
+            var players = _playerRepo.GetAllPlayers()
+                .ProjectTo<NewPlayerVm>(_mapper.ConfigurationProvider).ToList();
+            var playersToShow = players.ToList();
+            var playersList = new ListOfPlayersVm()
+            {
+                Players = playersToShow,
+                Count = players.Count(),
+            };
+            return playersList; 
+        }
+        public void AddPlayerToGame(Player player)
+        {
+
+        }
+
     }
 }
