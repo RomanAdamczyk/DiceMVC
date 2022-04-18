@@ -25,6 +25,16 @@ namespace DiceMVC.Controllers
         {
             var id = _gameService.AddGame(model);
             return RedirectToAction("NewOrLoadPlayer", "Player", new {idGame = id } );
-        }        
+        }  
+        [HttpGet]
+        public IActionResult LoadGame()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult SaveGame(int model)
+        {
+            return View();
+        }
     }
 }

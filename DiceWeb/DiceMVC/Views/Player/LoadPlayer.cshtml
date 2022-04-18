@@ -5,16 +5,16 @@
 }
 
 <h1>LoadPlayer</h1>
-@Model.GameId
 
 <div>
     <form asp-action="LoadPlayer" asp-controller="Player" method="post">
-        <input type="hidden" asp-for="GameId" class="form-control" value="@Model.GameId"/>
+        <input type="hidden" asp-for="GameId" class="form-control" value="@Model.GameId" />
+        <input type="hidden" asp-for="PlayerNo" class="form-control" />
         <table class="table">
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.Count)
+                        @Html.DisplayFor(model => model.Count)
                     </th>
                     <th></th>
                 </tr>
@@ -29,7 +29,7 @@
                         <td>
                             <div class="form-group form-check">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" value="@Html.DisplayFor(modelItem => item.Id)" asp-for="ChoosePlayer" /><br />
+                                    <input type="radio" class="form-check-input" value="@item.Id" asp-for="ChoosePlayer" /><br />
                                 </label>
                             </div>
 

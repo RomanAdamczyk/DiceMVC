@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DiceMVC.Application.ViewModels.Player
 {
-    public class ListOfPlayersVm: IMapFrom<DiceMVC.Domain.Model.Player>
+    public class ListOfPlayersVm: IMapFrom<DiceMVC.Domain.Model.Game>
     {
         public ListOfPlayersVm()
         {
@@ -22,6 +22,7 @@ namespace DiceMVC.Application.ViewModels.Player
         public int Count { get; set; }
         public string ChoosePlayer { get; set; }
         public int GameId { get; set; }
+        public int PlayerNo { get; set; }
 
     }
 }

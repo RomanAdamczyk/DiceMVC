@@ -43,17 +43,21 @@ namespace DiceMVC.Application.Services
          //   AddPlayerToGame(id, player.GameId);
             return id;
         }
-        public void AddPlayerToGame(int playerId, int gameId)
+        public ListOfPlayersVm AddPlayerToGame(ListOfPlayersVm model)
         {
-            var game = _gameRepo.GetGame(gameId);
-            var playerValue = new PlayerValue(playerId, gameId);
+            var game = _gameRepo.GetGame(model.GameId);
+            int playerId = Int32.Parse(model.ChoosePlayer);
+            var playerValue = new PlayerValue(playerId, model.GameId);
             _playerRepo.AddPlayerValue(playerValue);
-            var playersTurn = new PlayersTurn(gameId, playerId, game.CurrentPlayerId);
+            var playersTurn = new PlayersTurn(model.GameId, playerId, game.CurrentPlayerId);
             _playerRepo.AddPlayersTurn(playersTurn);
-            var gamePlayer = new GamePlayer(gameId, playerId);
+            var gamePlayer = new GamePlayer(model.GameId, playerId);
             _playerRepo.AddGamePlayer(gamePlayer);
             game.CurrentPlayerId += 1;
             _gameRepo.UpdateGamePlayerNo(game);
+            model.Count = game.PlayerCount;
+            model.PlayerNo = game.CurrentPlayerId;
+            return model;
 
         }
         //public PlayerValue AddPlayerValues(int playerId, int gameId)
@@ -93,10 +97,6 @@ namespace DiceMVC.Application.Services
             };
             return playersList; 
         }
-        public void AddPlayerToGame(Player player)
-        {
-
-        }
-
+      
     }
 }
