@@ -10,6 +10,7 @@ namespace DiceMVC.Application.ViewModels.Game
     {
         public List<GetSavedGamesToListVm> Games { get; set; }
         public int Count { get; set; }
+        public string ChooseGame { get; set; }
 
     }
 }

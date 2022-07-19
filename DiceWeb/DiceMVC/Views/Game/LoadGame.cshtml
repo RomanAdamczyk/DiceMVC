@@ -1,0 +1,45 @@
+﻿@model DiceMVC.Application.ViewModels.Game.ListOfSavedGamesVm
+
+@{
+    ViewData["Title"] = "LoadGame";
+}
+
+<h1>LoadGame</h1>
+
+<div>
+    <form asp-action="LoadGame" asp-controller="Game" method="post">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Count)  xxxxxxxxx
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Games)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GameId)
+                    </td>
+                    <td>
+                        <div class="form-group form-check">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" value="@item.GameId" asp-for="ChooseGame" /><br />
+                            </label>
+                        </div>
+                    </td>
+                    <td>
+                        @foreach(var player in item.Players)
+                       { <td>
+                            @Html.DisplayFor(modelItem => player.Name  ) 
+                          </td>}
+                    
+                </tr>
+                }
+            </tbody>
+        </table>
+    </form>
+</div>

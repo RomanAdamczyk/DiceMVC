@@ -23,6 +23,7 @@ namespace DiceMVC.Application.ViewModels.Player
         public string ChoosePlayer { get; set; }
         public int GameId { get; set; }
         public int PlayerNo { get; set; }
+        public int PlayerValue { get; set; }
 
     }
 }

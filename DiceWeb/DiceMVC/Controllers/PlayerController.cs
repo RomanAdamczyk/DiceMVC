@@ -68,7 +68,7 @@ namespace DiceMVC.Controllers
         [HttpPost]
         public IActionResult LoadPlayer(ListOfPlayersVm model)
         {
-            string choosenPlayer = model.ChoosePlayer;
+            var choosenPlayer = model.ChoosePlayer;
             model = _playerService.AddPlayerToGame(model);
             if (model.Count > model.PlayerNo)
                 return RedirectToAction("NewOrLoadPlayer", new { idGame = model.GameId });

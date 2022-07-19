@@ -33,6 +33,18 @@ namespace DiceMVC.Infrastructure.Repositories
             _context.SaveChanges();
             return game.CurrentPlayerId;       
         }
+        public IQueryable<Game> GetActiveGames()
+        {
+            return _context.Games.Where(g => g.IsActive);
+        }
+        public List<Player> GetPlayersToGame(int idGame)
+        {
+            var players = from player in _context.Players
+                        where player.GamePlayers.Any(pl => pl.GameId == idGame)
+                        select player;
+
+            return players.ToList();
+        }
 
     }
 }

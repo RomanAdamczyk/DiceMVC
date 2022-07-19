@@ -18,6 +18,7 @@ namespace DiceMVC.Application.Interfaces
         //PlayersTurn AddPlayersTurns(int gameId, int playerId, int turnNo);
         ListOfPlayersVm GetPlayersForList();
         ListOfPlayersVm AddPlayerToGame(ListOfPlayersVm model);
+        ListOfPlayersVm GetPlayersByIdGame(int idGame);
         
     }
 }

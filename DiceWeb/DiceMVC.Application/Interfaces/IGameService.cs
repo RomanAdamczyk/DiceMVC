@@ -13,5 +13,6 @@ namespace DiceMVC.Application.Interfaces
     {
         int AddGame(GetPlayerCountVm game);
         bool PlayerNoUp(int gameId);
+        ListOfSavedGamesVm GetGamesToList();
     }
 }

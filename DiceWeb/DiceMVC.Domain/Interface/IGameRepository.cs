@@ -12,6 +12,8 @@ namespace DiceMVC.Domain.Interface
         int AddGame(Game game);
         Game GetGame(int gameId);
         int UpdateGamePlayerNo(Game game);
+        IQueryable<Game> GetActiveGames();
+        IQueryable<Player> GetPlayersToGame(int idGame);
         
     }
 }

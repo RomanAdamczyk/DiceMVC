@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using DiceMVC.Application.Interfaces;
 using DiceMVC.Application.ViewModels.Game;
 using DiceMVC.Application.ViewModels.Player;
@@ -16,6 +17,7 @@ namespace DiceMVC.Application.Services
     {
         private readonly IMapper _mapper;
         private readonly IGameRepository _gameRepo;
+        private readonly IPlayerRepository _playerRepo; 
         public GameService(IGameRepository gameRepo, IMapper mapper)
         {
             _gameRepo = gameRepo;
@@ -35,6 +37,26 @@ namespace DiceMVC.Application.Services
             if (game.PlayerCount > playerNo + 1) return true;
             else return false;
 
+        }
+        public ListOfSavedGamesVm GetGamesToList()
+        {
+
+            var games = _gameRepo.GetActiveGames()
+                .ProjectTo<GetSavedGamesToListVm>(_mapper.ConfigurationProvider).ToList();
+            List<int> idGames = new List<int>();
+            ListOfSavedGamesVm gameList = new ListOfSavedGamesVm();
+            foreach (GetSavedGamesToListVm game in games)
+                { var players = _gameRepo.GetPlayersToGame(game.GameId)
+                    .ProjectTo<NewPlayerVm>(_mapper.ConfigurationProvider).ToList();
+                game.Players = players;
+            }
+
+            gameList.Games = games;
+            gameList.Count = games.Count;
+            
+                
+
+            return gameList;
         }
 
     }

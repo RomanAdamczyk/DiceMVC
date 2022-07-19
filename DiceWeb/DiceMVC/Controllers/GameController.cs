@@ -29,10 +29,14 @@ namespace DiceMVC.Controllers
         [HttpGet]
         public IActionResult LoadGame()
         {
-            return View();
+            var model = _gameService.GetGamesToList();
+            List<int> listOfIdGames = new List<int>();
+            foreach (GetSavedGamesToListVm game in model.Games)
+            { listOfIdGames.Add(game.GameId); }
+            return View(model);
         }
         [HttpPost]
-        public IActionResult SaveGame(int model)
+        public IActionResult LoadGame(ListOfSavedGamesVm model)
         {
             return View();
         }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace DiceMVC.Domain.Interface
 {
     public interface IPlayerRepository
@@ -17,7 +18,7 @@ namespace DiceMVC.Domain.Interface
         void AddPlayersTurn(PlayersTurn playersTurn);
         void AddGamePlayer(GamePlayer gamePlayer);
         IQueryable<Player> GetAllPlayers();
-        
+
        
     }
 }

@@ -89,14 +89,21 @@ namespace DiceMVC.Application.Services
         {
             var players = _playerRepo.GetAllPlayers()
                 .ProjectTo<NewPlayerVm>(_mapper.ConfigurationProvider).ToList();
-            var playersToShow = players.ToList();
             var playersList = new ListOfPlayersVm()
             {
-                Players = playersToShow,
+                Players = players,
                 Count = players.Count(),
             };
             return playersList; 
         }
-      
+        public ListOfPlayersVm GetPlayersByIdGame(int idGame)
+        {
+            ListOfPlayersVm players;
+
+            return null;
+        }
+
+
+
     }
 }
