@@ -12,7 +12,7 @@
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.Count)  xxxxxxxxx
+                        @Html.DisplayFor(model => model.Count)  wybierz grę
                     </th>
                     <th></th>
                 </tr>
@@ -21,9 +21,9 @@
                 @foreach (var item in Model.Games)
                 {
                 <tr>
-                    <td>
+                    <th>
                         @Html.DisplayFor(modelItem => item.GameId)
-                    </td>
+                    </th>
                     <td>
                         <div class="form-group form-check">
                             <label class="form-check-label">
