@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DiceMVC.Application.ViewModels.Game;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace DiceMVC.Application.ViewModels.Player
 {
     public class ListPlayersValueForListVm
     {
-        public List<PlayerValueForListVm> AllPlayersValue { get; set; }
-        int Count { get; set; }
+        public List<PlayerValueVM> AllPlayersValue { get; set; }
+        public int Count { get; set; }
     }
 }

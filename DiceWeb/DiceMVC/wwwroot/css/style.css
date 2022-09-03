@@ -1,0 +1,43 @@
+body{
+	background-color: rgb(31 7 7);
+	color: rgb(238 247 161);
+}
+button {
+	width: 40%;
+	background-color: saddlebrown;
+	color: gold;
+	box-shadow: 3px 3px 5px rgb(128 128 128);
+	text-shadow: 0 2px 2px rgba(255, 255, 255, 0.2);
+	border: 0;
+}
+h3{ color: rgb(154 59 3)}
+#header {
+	width: 100%;
+	float: left;
+	background-color: yellowgreen;
+	text-align: center;
+}
+
+#left {
+	width: 30%;
+	float: left;
+	overflow: hidden;
+}
+
+#right {
+	width: 30%;
+	float: right;
+	overflow: hidden;
+}
+
+#content {
+	width: 40%;
+	float: left;
+	overflow: hidden;
+	background-color: green;
+}
+
+#footer {
+	clear: both;
+	width: 100%;
+}

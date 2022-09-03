@@ -11,9 +11,11 @@ namespace DiceMVC.Controllers
     public class PlayerController : Controller
     {
         private readonly IPlayerService _playerService;
-        public PlayerController(IPlayerService playerService)
+        private readonly IGameService _gameService;
+        public PlayerController(IPlayerService playerService, IGameService gameService)
         {
             _playerService = playerService;
+            _gameService = gameService;
         }
         //public IActionResult Index()
         //{
@@ -34,7 +36,10 @@ namespace DiceMVC.Controllers
 
             if (model.PlayerCount > model.PlayerNo + 1) 
                 return RedirectToAction("NewOrLoadPlayer", new {idGame = model.GameId });
-            else return RedirectToAction("Game","NewRound");
+            else
+            {   _gameService.EndingCreate(model.GameId);
+                return RedirectToAction("Game", "PlayGame", new { idGame = model.GameId });
+            }
         }
         [HttpGet]
         public IActionResult NewOrLoadPlayer(int idGame)
@@ -72,10 +77,12 @@ namespace DiceMVC.Controllers
             model = _playerService.AddPlayerToGame(model);
             if (model.Count > model.PlayerNo)
                 return RedirectToAction("NewOrLoadPlayer", new { idGame = model.GameId });
-            else return RedirectToAction("Game", "NewRound");
-            
+            else
+            {
+                _gameService.EndingCreate(model.GameId);
+                return RedirectToAction("Game", "Playgame", new { idGame = model.GameId });
+            }
         }
-
         [HttpGet]
         public IActionResult ViewPlayerValues()
         {

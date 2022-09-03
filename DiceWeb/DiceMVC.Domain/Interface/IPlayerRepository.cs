@@ -10,15 +10,16 @@ namespace DiceMVC.Domain.Interface
 {
     public interface IPlayerRepository
     {
-        PlayerValue GetPlayerValue(int playerId);
+      //  PlayerValue GetPlayerValue(int playerId);
       //  public Player GetPlayer(int playerId);
-        IQueryable<PlayerValue> GetAllPlayerValues();
+        IQueryable<PlayerValue> GetAllPlayersValues(int gameId);
         int AddPlayer(Player player);
         void AddPlayerValue(PlayerValue playerValue);
         void AddPlayersTurn(PlayersTurn playersTurn);
         void AddGamePlayer(GamePlayer gamePlayer);
         IQueryable<Player> GetAllPlayers();
+        IQueryable<PlayerValue> GetPlayerValue(int gameId, int playerId);
 
-       
+
     }
 }

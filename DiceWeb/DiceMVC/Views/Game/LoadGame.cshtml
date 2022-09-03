@@ -34,12 +34,13 @@
                     <td>
                         @foreach(var player in item.Players)
                        { <td>
-                            @Html.DisplayFor(modelItem => player.Name  ) 
+                            @Html.DisplayFor(modelItem => player.Name) 
                           </td>}
                     
                 </tr>
                 }
             </tbody>
         </table>
+        <input type="submit" value="Wybierz" />
     </form>
 </div>

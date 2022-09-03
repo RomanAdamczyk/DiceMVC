@@ -2,15 +2,32 @@
     ViewData["Title"] = "Home Page";
 }
 
+
 <div class="text-center">
-    <h1 class="display-4">Witaj w grze w kości</h1>
+    <h3 >Witaj w grze w kości</h3>
     <p>wybierz odpowiednią opcję</p>
 </div>
-<form>
-    <div class="text-center">
-        @Html.ActionLink("Nowa gra", "GetPlayersCount", "Game")<br />
-        @Html.ActionLink("Wczytaj zapisaną grę", "LoadGame", "Game")<br />
-        @Html.ActionLink("Instrukcje", "", "")<br /> 
-    </div>
-</form>
+
+    <p style="text-align: center">
+        <a href="@Url.Action("GetPlayersCount", "Game")">
+            <button type="button">
+                Nowa gra
+            </button>
+        </a>
+    </p>
+    <p style="text-align: center">
+        <a href="@Url.Action("LoadGame", "Game")">
+            <button type="button" >
+                Wczytaj zapisaną grę
+            </button>
+        </a>
+    <p style="text-align: center">
+        <a href="@Url.Action("", "")">
+            <button type="button">
+                Instrukcje
+            </button>
+        </a>
+    </p>
+    </p>
+
 

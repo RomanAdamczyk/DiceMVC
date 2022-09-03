@@ -45,6 +45,18 @@ namespace DiceMVC.Infrastructure.Repositories
 
             return players;
         }
+        public void UpdateEndingCreate(Game game)
+        {
+            _context.Attach(game);
+            _context.Entry(game).Property("IsActive").IsModified = true;
+            _context.Entry(game).Property("CurrentPlayerId").IsModified = true;
+            _context.SaveChanges();
+        }
+        public int GetFirstPlayerId(int gameId)
+        {
+            var item = _context.GamePlayer.FirstOrDefault(p => p.GameId == gameId);
+            return item.PlayerId;
+        }
 
     }
 }

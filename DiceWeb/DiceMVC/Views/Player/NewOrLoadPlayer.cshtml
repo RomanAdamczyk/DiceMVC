@@ -8,24 +8,24 @@
 @Model.IdGame
 <h4>NewOrLoadPlayerVm</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
+<div>
+    <div>
         <form asp-action="NewOrLoadPlayer">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            <div>
                 <input type="hidden" asp-for="IdGame" class="form-control" />
             </div>
-            <div class="form-group">
+            <div>
                 <input type="hidden" asp-for="TurnNo" class="form-control" />
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
+            <div>
+                <label>
                     <input type="radio" class="form-check-input" value = "New" asp-for="CreateNewPlayer" /> Nowy Gracz<br />
                     <input type="radio" class="form-check-input" value= "Load" asp-for="CreateNewPlayer" /> Wczytaj Gracza
                 </label>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Dalej" class="btn btn-primary" />
+            <div>
+                <input type="submit" value="Dalej" />
             </div>
         </form>
     </div>

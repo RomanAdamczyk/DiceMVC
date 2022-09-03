@@ -10,7 +10,7 @@ namespace DiceMVC.Application.Interfaces
 {
     public interface IPlayerService
     {
-        PlayerValueForListVm ShowPlayerValues(int playerId);
+       // PlayerValueVM ShowPlayerValues(int playerId);
         int AddNewPlayer(NewPlayerVm player);
         //PlayerValue AddPlayerValues(int playerId, int GameId);
         string NewOrLoadPlayer(NewOrLoadPlayerVm newOrLoadPlayerVm);
@@ -18,7 +18,7 @@ namespace DiceMVC.Application.Interfaces
         //PlayersTurn AddPlayersTurns(int gameId, int playerId, int turnNo);
         ListOfPlayersVm GetPlayersForList();
         ListOfPlayersVm AddPlayerToGame(ListOfPlayersVm model);
-        ListOfPlayersVm GetPlayersByIdGame(int idGame);
+
         
     }
 }

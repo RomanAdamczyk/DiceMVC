@@ -38,6 +38,23 @@ namespace DiceMVC.Controllers
         [HttpPost]
         public IActionResult LoadGame(ListOfSavedGamesVm model)
         {
+            return RedirectToAction("Gameplay", "Game", new { gameId = model.ChooseGame });
+
+        }
+        [HttpGet]
+        public IActionResult Gameplay(int gameId)
+        {
+            PlaygameVm model = new PlaygameVm() 
+            { GameId = gameId};
+            var game = _gameService.GetGameById(gameId);
+            model.CurrentPlayer = _gameService.GetCurrentPlayerValue(gameId, game.CurrentPlayerId);
+            model.Players = _gameService.GetPlayersScores(gameId);
+            model.Round = game.CurrentRound;
+            return View(model);
+        }
+        [HttpPost]
+        public IActionResult Gameplay(PlaygameVm model)
+        {
             return View();
         }
     }

@@ -31,14 +31,22 @@ namespace DiceMVC.Infrastructure.Repositories
             _context.PlayersTurns.Add(playersTurn);
             _context.SaveChanges();
         }
-        public PlayerValue GetPlayerValue(int playerId)
+        public IQueryable<PlayerValue> GetPlayerValue(int gameId,int playerId)
         {
-            var playerValue = _context.PlayerValues.FirstOrDefault(i => i.Id == playerId);
+            var playerValue = from value in _context.PlayerValues
+                               where value.PlayerId.Equals(playerId)
+                               where value.GameId.Equals(gameId)
+                               select value;
+
             return playerValue;
         }
-        public IQueryable<PlayerValue> GetAllPlayerValues()
+        public IQueryable<PlayerValue> GetAllPlayersValues(int gameId)
         {
-            var playerValues = _context.PlayerValues;
+            var playerValues = from value in _context.PlayerValues
+                               where value.GameId.Equals(gameId)
+                               orderby value.Total
+                               select value;
+                              
             return playerValues;
         }
         public void AddGamePlayer(GamePlayer gamePlayer)

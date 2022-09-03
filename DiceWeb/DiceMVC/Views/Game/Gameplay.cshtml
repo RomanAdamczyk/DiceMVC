@@ -1,0 +1,188 @@
+﻿@model DiceMVC.Application.ViewModels.Game.PlaygameVm
+
+@{
+    ViewData["Title"] = "Gameplay";
+}
+
+<h1>Gameplay</h1>
+
+
+
+<div id="header">Runda nr @Html.DisplayFor(model => model.Round) Gracz @Html.DisplayFor(model => model.CurrentPlayer.Name) </div>
+<div id="left">
+    <Table border="1">
+
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.CurrentPlayer.Ones)
+                </td>
+                <td>
+                    @if (Model.CurrentPlayer.OnesIsUsed)
+                        @Html.DisplayFor(model => model.CurrentPlayer.Ones)
+                        else @Html.Display(" - ")
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.CurrentPlayer.Twos)
+                </td>
+                <td>
+                    @if (Model.CurrentPlayer.TwosIsUsed)
+                        @Html.DisplayFor(model => model.CurrentPlayer.Twos)
+                        else @Html.Display(" - ")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.CurrentPlayer.Threes)
+                </td>
+                <td>
+                    @if (Model.CurrentPlayer.ThreesIsUsed)
+                        @Html.DisplayFor(model => model.CurrentPlayer.Threes)
+                        else @Html.Display(" - ")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.CurrentPlayer.Fours)
+                </td>
+                <td>
+                    @if (Model.CurrentPlayer.FoursIsUsed)
+                        @Html.DisplayFor(model => model.CurrentPlayer.Fours)
+                        else @Html.Display(" - ")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.CurrentPlayer.Fives)
+                </td>
+                <td>
+                    @if (Model.CurrentPlayer.FivesIsUsed)
+                        @Html.DisplayFor(model => model.CurrentPlayer.Fives)
+                        else @Html.Display(" - ")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.CurrentPlayer.Sixs)
+                </td>
+                <td>
+                    @if (Model.CurrentPlayer.SixsIsUsed)
+                        @Html.DisplayFor(model => model.CurrentPlayer.Sixs)
+                        else @Html.Display(" - ")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.CurrentPlayer.Bonus)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.CurrentPlayer.Bonus)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.CurrentPlayer.Triple)
+                </td>
+                <td>
+                    @if (Model.CurrentPlayer.TripleIsUsed)
+                        @Html.DisplayFor(model => model.CurrentPlayer.Triple)
+                        else @Html.Display(" - ")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.CurrentPlayer.Fourfold)
+                </td>
+                <td>
+                    @if (Model.CurrentPlayer.FourFoldIsUsed)
+                        @Html.DisplayFor(model => model.CurrentPlayer.Fourfold)
+                        else @Html.Display(" - ")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.CurrentPlayer.Full)
+                </td>
+                <td>
+                    @if (Model.CurrentPlayer.FoursIsUsed)
+                        @Html.DisplayFor(model => model.CurrentPlayer.Full)
+                        else @Html.Display(" - ")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.CurrentPlayer.SmallStraight)
+                </td>
+                <td>
+                    @if (Model.CurrentPlayer.SmallStraightIsUsed)
+                        @Html.DisplayFor(model => model.CurrentPlayer.SmallStraight)
+                        else @Html.Display(" - ")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.CurrentPlayer.HighStraight)
+                </td>
+                <td>
+                    @if (Model.CurrentPlayer.HighStraightIsUsed)
+                        @Html.DisplayFor(model => model.CurrentPlayer.HighStraight)
+                        else @Html.Display(" - ")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.CurrentPlayer.General)
+                </td>
+                <td>
+                    @if (Model.CurrentPlayer.GeneralIsUsed)
+                        @Html.DisplayFor(model => model.CurrentPlayer.General)
+                        else @Html.Display(" - ")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.CurrentPlayer.Chance)
+                </td>
+                <td>
+                    @if (Model.CurrentPlayer.ChanceIsUsed)
+                        @Html.DisplayFor(model => model.CurrentPlayer.Chance)
+                        else @Html.Display(" - ")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.CurrentPlayer.Total)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.CurrentPlayer.Total)
+                </td>
+            </tr>
+        </Table>
+</div>
+<div id="content">content</div>
+<div id="right">
+    <Table border="1">
+        <th>
+            
+                Player
+            </th>
+            <th>
+                Score
+            </th>
+
+        @foreach (var player in Model.Players)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(pl => player.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(sc => player.Total)
+                    </td>
+                </tr>
+            }
+        </Table>
+</div>
+<div id="footer">footer</div>

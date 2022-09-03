@@ -8,8 +8,8 @@
 
 <div>
     <form asp-action="LoadPlayer" asp-controller="Player" method="post">
-        <input type="hidden" asp-for="GameId" class="form-control" value="@Model.GameId" />
-        <input type="hidden" asp-for="PlayerNo" class="form-control" />
+        <input type="hidden" asp-for="GameId"  value="@Model.GameId" />
+        <input type="hidden" asp-for="PlayerNo"  />
         <table class="table">
             <thead>
                 <tr>
@@ -27,9 +27,9 @@
                             @Html.DisplayFor(modelItem => item.Id)
                         </td>
                         <td>
-                            <div class="form-group form-check">
-                                <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" value="@item.Id" asp-for="ChoosePlayer" /><br />
+                            <div>
+                                <label>
+                                    <input type="radio" value="@item.Id" asp-for="ChoosePlayer" /><br />
                                 </label>
                             </div>
 
@@ -42,8 +42,8 @@
                 }
             </tbody>
         </table>
-        <div class="form-group">
-            <input type="submit" value="Dalej" class="btn btn-primary" />
+        <div>
+            <input type="submit" value="Dalej" />
         </div>
     </form>
 

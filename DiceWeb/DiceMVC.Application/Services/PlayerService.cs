@@ -71,12 +71,12 @@ namespace DiceMVC.Application.Services
         //    return playersTurn;
         //}
 
-        public PlayerValueForListVm ShowPlayerValues(int playerId)
-        {
-            var player = _playerRepo.GetPlayerValue(playerId);
-            var playerVm = _mapper.Map<PlayerValueForListVm>(player);
-            return playerVm;
-        }
+        //public PlayerValueVM ShowPlayerValues(int playerId)
+        //{
+        //    var player = _playerRepo.GetPlayerValue(playerId);
+        //    var playerVm = _mapper.Map<PlayerValueVM>(player);
+        //    return playerVm;
+        //}
         public string NewOrLoadPlayer(NewOrLoadPlayerVm newOrLoadPlayerVm)
         {
             return newOrLoadPlayerVm.CreateNewPlayer;
@@ -96,14 +96,5 @@ namespace DiceMVC.Application.Services
             };
             return playersList; 
         }
-        public ListOfPlayersVm GetPlayersByIdGame(int idGame)
-        {
-            ListOfPlayersVm players;
-
-            return null;
-        }
-
-
-
     }
 }

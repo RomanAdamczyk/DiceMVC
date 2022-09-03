@@ -12,7 +12,11 @@ namespace DiceMVC.Application.Interfaces
     public interface IGameService
     {
         int AddGame(GetPlayerCountVm game);
-        bool PlayerNoUp(int gameId);
+       // bool PlayerNoUp(int gameId);
         ListOfSavedGamesVm GetGamesToList();
+        void EndingCreate(int gameId);
+        Game GetGameById(int gameId);
+        PlayerValueVM GetCurrentPlayerValue(int gameId, int playerId);
+        List<PlayerScoreVm> GetPlayersScores(int gameId);
     }
 }
