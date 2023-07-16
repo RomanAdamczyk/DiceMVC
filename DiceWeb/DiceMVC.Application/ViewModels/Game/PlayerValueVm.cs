@@ -11,6 +11,7 @@ namespace DiceMVC.Application.ViewModels.Game
     public class PlayerValueVM : IMapFrom<DiceMVC.Domain.Model.PlayerValue>
     {
         public int Id { get; set; }
+        public int PlayerId { get; set; }
         public string Name { get; set; }
         public int Ones { get; set; }
         public bool OnesIsUsed { get; set; }
@@ -28,7 +29,7 @@ namespace DiceMVC.Application.ViewModels.Game
         public int Triple { get; set; }
         public bool TripleIsUsed { get; set; }
         public int Fourfold { get; set; }
-        public bool FourFoldIsUsed { get; set; }
+        public bool FourfoldIsUsed { get; set; }
         public int Full { get; set; }
         public bool FullIsUsed { get; set; }
         public int SmallStraight { get; set; }
@@ -44,7 +45,8 @@ namespace DiceMVC.Application.ViewModels.Game
         {
             profile.CreateMap<DiceMVC.Domain.Model.PlayerValue, PlayerValueVM>()
                 .ForMember(s => s.Name, opt => opt.MapFrom(d => d.Player.Name))
-                .ForMember(s => s.Total, opt => opt.MapFrom(d => 0));
+                .ForMember(s => s.Total, opt => opt.MapFrom(d => 0))
+                .ForMember(s => s.PlayerId, opt => opt.MapFrom(d => d.PlayerId));
         }
 
     }

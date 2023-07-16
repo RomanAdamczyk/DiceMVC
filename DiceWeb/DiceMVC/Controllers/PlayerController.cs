@@ -80,7 +80,7 @@ namespace DiceMVC.Controllers
             else
             {
                 _gameService.EndingCreate(model.GameId);
-                return RedirectToAction("Game", "Playgame", new { idGame = model.GameId });
+                return RedirectToAction("GamePlay", "Game", new { gameId = model.GameId });
             }
         }
         [HttpGet]

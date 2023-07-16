@@ -62,12 +62,17 @@ namespace DiceMVC.Infrastructure.Migrations
                     b.Property<int>("Lap")
                         .HasColumnType("int");
 
+                    b.Property<int>("PlayerId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Round")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("GameId");
+
+                    b.HasIndex("PlayerId");
 
                     b.ToTable("Dices");
                 });
@@ -78,6 +83,9 @@ namespace DiceMVC.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CurrentLap")
+                        .HasColumnType("int");
 
                     b.Property<int>("CurrentPlayerId")
                         .HasColumnType("int");
@@ -492,7 +500,15 @@ namespace DiceMVC.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("DiceMVC.Domain.Model.Player", "Player")
+                        .WithMany("Dices")
+                        .HasForeignKey("PlayerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Game");
+
+                    b.Navigation("Player");
                 });
 
             modelBuilder.Entity("DiceMVC.Domain.Model.GamePlayer", b =>
@@ -627,6 +643,8 @@ namespace DiceMVC.Infrastructure.Migrations
 
             modelBuilder.Entity("DiceMVC.Domain.Model.Player", b =>
                 {
+                    b.Navigation("Dices");
+
                     b.Navigation("GamePlayers");
 
                     b.Navigation("PlayerStatistic");

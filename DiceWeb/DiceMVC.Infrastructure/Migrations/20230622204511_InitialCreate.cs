@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DiceMVC.Infrastructure.Migrations
 {
-    public partial class IninitialCreate : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -54,6 +54,7 @@ namespace DiceMVC.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CurrentPlayerId = table.Column<int>(type: "int", nullable: false),
                     CurrentRound = table.Column<int>(type: "int", nullable: false),
+                    CurrentLap = table.Column<int>(type: "int", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     PlayerCount = table.Column<int>(type: "int", nullable: false)
                 },
@@ -199,7 +200,8 @@ namespace DiceMVC.Infrastructure.Migrations
                     Dice5IsBlocked = table.Column<bool>(type: "bit", nullable: false),
                     Lap = table.Column<int>(type: "int", nullable: false),
                     Round = table.Column<int>(type: "int", nullable: false),
-                    GameId = table.Column<int>(type: "int", nullable: false)
+                    GameId = table.Column<int>(type: "int", nullable: false),
+                    PlayerId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -208,6 +210,12 @@ namespace DiceMVC.Infrastructure.Migrations
                         name: "FK_Dices_Games_GameId",
                         column: x => x.GameId,
                         principalTable: "Games",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Dices_Players_PlayerId",
+                        column: x => x.PlayerId,
+                        principalTable: "Players",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -382,6 +390,11 @@ namespace DiceMVC.Infrastructure.Migrations
                 name: "IX_Dices_GameId",
                 table: "Dices",
                 column: "GameId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Dices_PlayerId",
+                table: "Dices",
+                column: "PlayerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_GamePlayer_PlayerId",

@@ -57,6 +57,46 @@ namespace DiceMVC.Infrastructure.Repositories
             var item = _context.GamePlayer.FirstOrDefault(p => p.GameId == gameId);
             return item.PlayerId;
         }
+        public IQueryable<Dices> GetDicesRepo(int gameId, int playerId, int round, int lap)
+        {
+            var previousDices = from dices in _context.Dices
+                                where dices.GameId.Equals(gameId)
+                                where dices.PlayerId.Equals(playerId)
+                                where dices.Round.Equals(round)
+                                where dices.Lap.Equals(lap)
+                                select dices;
+            return previousDices;
+        }
+        public IQueryable<int> GetLap(int gameId, int playerId, int round)
+        {
+            var listOfLaps = from dices in _context.Dices
+                             where dices.GameId.Equals(gameId)
+                             where dices.PlayerId.Equals(playerId)
+                             where dices.Round.Equals(round)
+                             select dices.Lap;
+            return listOfLaps;
+        }
+        public void SaveDices(Dices dices)
+        {
+            _context.Dices.Add(dices);
+            _context.SaveChanges();
+        }
+        public void NextLapRepo (Game game)
+        {
+            _context.Attach(game);
+            _context.Entry(game).Property("CurrentLap").IsModified = true;
+            _context.SaveChanges();
+        }
+        public void SaveBlockedDicesRep(Dices dices)
+        {
+            _context.Attach(dices);
+            if (dices.Dice1IsBlocked) _context.Entry(dices).Property("Dice1IsBlocked").IsModified = true;
+            if (dices.Dice2IsBlocked) _context.Entry(dices).Property("Dice2IsBlocked").IsModified = true;
+            if (dices.Dice3IsBlocked) _context.Entry(dices).Property("Dice3IsBlocked").IsModified = true;
+            if (dices.Dice4IsBlocked) _context.Entry(dices).Property("Dice4IsBlocked").IsModified = true;
+            if (dices.Dice5IsBlocked) _context.Entry(dices).Property("Dice5IsBlocked").IsModified = true;
+            _context.SaveChanges();
 
+        }
     }
 }

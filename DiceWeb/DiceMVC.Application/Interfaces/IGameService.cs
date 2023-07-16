@@ -18,5 +18,13 @@ namespace DiceMVC.Application.Interfaces
         Game GetGameById(int gameId);
         PlayerValueVM GetCurrentPlayerValue(int gameId, int playerId);
         List<PlayerScoreVm> GetPlayersScores(int gameId);
+        DicesVm GetDices(int gameId, int playerId, int round, int lap);
+        int CountValues(DicesVm dices, int value);
+        void GetDicesToSave(DicesVm dices);
+        void NextLap(int gameId);
+        void NextPlayer(int gameId);
+        void SaveBlockedDices(DicesVm dices);
+
+
     }
 }

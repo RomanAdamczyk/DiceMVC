@@ -11,6 +11,7 @@ namespace DiceMVC.Domain.Model
         public int Id { get; set; }
         public int CurrentPlayerId { get; set; }
         public int CurrentRound { get; set; }
+        public int CurrentLap { get; set; }
         public bool IsActive { get; set; }
         public int PlayerCount { get; set; }
         public virtual ICollection<Dices> Dices { get; set; }

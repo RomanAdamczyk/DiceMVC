@@ -12,177 +12,309 @@
 <div id="left">
     <Table border="1">
 
-            <tr>
-                <td>
-                    @Html.DisplayNameFor(model => model.CurrentPlayer.Ones)
-                </td>
-                <td>
-                    @if (Model.CurrentPlayer.OnesIsUsed)
-                        @Html.DisplayFor(model => model.CurrentPlayer.Ones)
-                        else @Html.Display(" - ")
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.CurrentPlayer.Ones)
+            </td>
 
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    @Html.DisplayNameFor(model => model.CurrentPlayer.Twos)
-                </td>
-                <td>
-                    @if (Model.CurrentPlayer.TwosIsUsed)
-                        @Html.DisplayFor(model => model.CurrentPlayer.Twos)
-                        else @Html.Display(" - ")
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    @Html.DisplayNameFor(model => model.CurrentPlayer.Threes)
-                </td>
-                <td>
-                    @if (Model.CurrentPlayer.ThreesIsUsed)
-                        @Html.DisplayFor(model => model.CurrentPlayer.Threes)
-                        else @Html.Display(" - ")
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    @Html.DisplayNameFor(model => model.CurrentPlayer.Fours)
-                </td>
-                <td>
-                    @if (Model.CurrentPlayer.FoursIsUsed)
-                        @Html.DisplayFor(model => model.CurrentPlayer.Fours)
-                        else @Html.Display(" - ")
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    @Html.DisplayNameFor(model => model.CurrentPlayer.Fives)
-                </td>
-                <td>
-                    @if (Model.CurrentPlayer.FivesIsUsed)
-                        @Html.DisplayFor(model => model.CurrentPlayer.Fives)
-                        else @Html.Display(" - ")
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    @Html.DisplayNameFor(model => model.CurrentPlayer.Sixs)
-                </td>
-                <td>
-                    @if (Model.CurrentPlayer.SixsIsUsed)
-                        @Html.DisplayFor(model => model.CurrentPlayer.Sixs)
-                        else @Html.Display(" - ")
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    @Html.DisplayNameFor(model => model.CurrentPlayer.Bonus)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => model.CurrentPlayer.Bonus)
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    @Html.DisplayNameFor(model => model.CurrentPlayer.Triple)
-                </td>
-                <td>
-                    @if (Model.CurrentPlayer.TripleIsUsed)
-                        @Html.DisplayFor(model => model.CurrentPlayer.Triple)
-                        else @Html.Display(" - ")
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    @Html.DisplayNameFor(model => model.CurrentPlayer.Fourfold)
-                </td>
-                <td>
-                    @if (Model.CurrentPlayer.FourFoldIsUsed)
-                        @Html.DisplayFor(model => model.CurrentPlayer.Fourfold)
-                        else @Html.Display(" - ")
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    @Html.DisplayNameFor(model => model.CurrentPlayer.Full)
-                </td>
-                <td>
-                    @if (Model.CurrentPlayer.FoursIsUsed)
-                        @Html.DisplayFor(model => model.CurrentPlayer.Full)
-                        else @Html.Display(" - ")
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    @Html.DisplayNameFor(model => model.CurrentPlayer.SmallStraight)
-                </td>
-                <td>
-                    @if (Model.CurrentPlayer.SmallStraightIsUsed)
-                        @Html.DisplayFor(model => model.CurrentPlayer.SmallStraight)
-                        else @Html.Display(" - ")
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    @Html.DisplayNameFor(model => model.CurrentPlayer.HighStraight)
-                </td>
-                <td>
-                    @if (Model.CurrentPlayer.HighStraightIsUsed)
-                        @Html.DisplayFor(model => model.CurrentPlayer.HighStraight)
-                        else @Html.Display(" - ")
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    @Html.DisplayNameFor(model => model.CurrentPlayer.General)
-                </td>
-                <td>
-                    @if (Model.CurrentPlayer.GeneralIsUsed)
-                        @Html.DisplayFor(model => model.CurrentPlayer.General)
-                        else @Html.Display(" - ")
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    @Html.DisplayNameFor(model => model.CurrentPlayer.Chance)
-                </td>
-                <td>
-                    @if (Model.CurrentPlayer.ChanceIsUsed)
-                        @Html.DisplayFor(model => model.CurrentPlayer.Chance)
-                        else @Html.Display(" - ")
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    @Html.DisplayNameFor(model => model.CurrentPlayer.Total)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => model.CurrentPlayer.Total)
-                </td>
-            </tr>
-        </Table>
+            @if (Model.CurrentPlayer.OnesIsUsed){
+            <td>
+                @Html.DisplayFor(model => model.CurrentPlayer.Ones)
+            </td>
+            }
+            else {
+            <td style="color:green">
+                @Html.DisplayFor(model => model.OptionalValues.Ones)
+            </td>                
+             }
+
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.CurrentPlayer.Twos)
+            </td>
+            @if (Model.CurrentPlayer.TwosIsUsed){
+            <td>
+                @Html.DisplayFor(model => model.CurrentPlayer.Twos)
+            </td>
+            }
+            else {
+            <td style="color:green">
+                @Html.DisplayFor(model => model.OptionalValues.Twos)
+            </td>
+            }
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.CurrentPlayer.Threes)
+            </td>
+            @if (Model.CurrentPlayer.ThreesIsUsed){
+            <td>
+                @Html.DisplayFor(model => model.CurrentPlayer.Threes)
+            </td>
+            }
+            else {
+            <td style="color:green">
+                @Html.DisplayFor(model => model.OptionalValues.Threes)
+            </td>
+            }
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.CurrentPlayer.Fours)
+            </td>
+            @if (Model.CurrentPlayer.FoursIsUsed){
+            <td>
+                @Html.DisplayFor(model => model.CurrentPlayer.Fours)
+            </td>
+            }
+            else {
+            <td style="color:green">
+                @Html.DisplayFor(model => model.OptionalValues.Fours)
+            </td>
+            }
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.CurrentPlayer.Fives)
+            </td>
+            @if (Model.CurrentPlayer.FivesIsUsed){
+            <td>
+                @Html.DisplayFor(model => model.CurrentPlayer.Fives)
+            </td>
+            }
+            else {
+            <td style="color:green">
+                @Html.DisplayFor(model => model.OptionalValues.Fives)
+            </td>
+            }
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.CurrentPlayer.Sixs)
+            </td>
+            @if (Model.CurrentPlayer.SixsIsUsed){
+            <td>
+                @Html.DisplayFor(model => model.CurrentPlayer.Sixs)
+            </td>
+            }
+            else {
+            <td style="color:green">
+                @Html.DisplayFor(model => model.OptionalValues.Sixs)
+            </td>
+            }
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.CurrentPlayer.Bonus)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.CurrentPlayer.Bonus)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.CurrentPlayer.Triple)
+            </td>
+            @if (Model.CurrentPlayer.TripleIsUsed){
+            <td>
+                @Html.DisplayFor(model => model.CurrentPlayer.Triple)
+            </td>
+            }
+            else {
+            <td style="color:green">
+                @Html.DisplayFor(model => model.OptionalValues.Triple)
+            </td>
+            }
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.CurrentPlayer.Fourfold)
+            </td>
+            @if (Model.CurrentPlayer.FourfoldIsUsed){
+            <td>
+                @Html.DisplayFor(model => model.CurrentPlayer.Fourfold)
+            </td>
+            }
+            else {
+            <td style="color:green">
+                @Html.DisplayFor(model => model.OptionalValues.Fourfold)
+            </td>
+            }
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.CurrentPlayer.Full)
+            </td>
+            @if (Model.CurrentPlayer.FullIsUsed){
+            <td>
+                @Html.DisplayFor(model => model.CurrentPlayer.Full)
+            </td>
+            }
+            else {
+            <td style="color:green">
+                @Html.DisplayFor(model => model.OptionalValues.Full)
+            </td>
+            }
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.CurrentPlayer.SmallStraight)
+            </td>
+            @if (Model.CurrentPlayer.SmallStraightIsUsed){
+            <td>
+                @Html.DisplayFor(model => model.CurrentPlayer.SmallStraight)
+            </td>
+            }
+            else {
+            <td style="color:green">
+                @Html.DisplayFor(model => model.OptionalValues.SmallStraight)
+            </td>
+            }
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.CurrentPlayer.HighStraight)
+            </td>
+            @if (Model.CurrentPlayer.HighStraightIsUsed){
+            <td>
+                @Html.DisplayFor(model => model.CurrentPlayer.HighStraight)
+            </td>
+            }
+            else {
+            <td style="color:green">
+                @Html.DisplayFor(model => model.OptionalValues.HighStraight)
+            </td>
+            }
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.CurrentPlayer.General)
+            </td>
+            @if (Model.CurrentPlayer.GeneralIsUsed){
+            <td>
+                @Html.DisplayFor(model => model.CurrentPlayer.General)
+            </td>
+            }
+            else {
+            <td style="color:green">
+                @Html.DisplayFor(model => model.OptionalValues.General)
+            </td>
+            }
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.CurrentPlayer.Chance)
+            </td>
+            <td>
+                @if (Model.CurrentPlayer.ChanceIsUsed)
+                    @Html.DisplayFor(model => model.CurrentPlayer.Chance)
+                else @Html.Display(" - ");
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.CurrentPlayer.Total)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.CurrentPlayer.Total)
+            </td>
+        </tr>
+    </Table>
 </div>
-<div id="content">content</div>
+<div id="content">
+    <form asp-action="GamePlay" asp-controller="Game" method="post">
+        @Html.HiddenFor(h => h.GameId)
+        @Html.HiddenFor(h => h.Dices)
+        @Html.HiddenFor(h => h.Dices[Model.Lap].Id)
+        @Html.HiddenFor(h => h.CurrentPlayer)
+        @Html.HiddenFor(h => h.CurrentPlayer.Id)
+        @Html.HiddenFor(h => h.Round)
+        @Html.HiddenFor(h => h.Lap)
+        <table>
+            <thead>
+                Zaznacz kości do pozostawienia
+            </thead>
+
+            @foreach (var dices in Model.Dices)
+
+            {@if (dices.Lap != 0)
+
+                {
+
+
+                    <tr>
+                        <p>Rzut @dices.Lap</p>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="@Html.DisplayFor(d => dices.Dice1ImgPath)" alt="@Html.DisplayFor(d => dices.Dice1)" width="50%" height="50%" title="Dice1" />
+                        </td>
+                        <td>
+                            <img src="@Html.DisplayFor(d => dices.Dice2ImgPath)" alt="@Html.DisplayFor(d => dices.Dice2)" width="50%" height="50%" title="Dice2" />
+                        </td>
+                        <td>
+                            <img src="@Html.DisplayFor(d => dices.Dice3ImgPath)" alt="@Html.DisplayFor(d => dices.Dice3)" width="50%" height="50%" title="Dice3" />
+                        </td>
+                        <td>
+                            <img src="@Html.DisplayFor(d => dices.Dice4ImgPath)" alt="@Html.DisplayFor(d => dices.Dice4)" width="50%" height="50%" title="Dice4" />
+                        </td>
+                        <td>
+                            <img src="@Html.DisplayFor(d => dices.Dice5ImgPath)" alt="@Html.DisplayFor(d => dices.Dice5)" width="50%" height="50%" title="Dice5" />
+                        </td>
+                    </tr>
+                }
+
+        }
+            <tr>
+                <td>
+                    @Html.CheckBoxFor(it => it.BlockedDices.Dice1IsBlocked)
+                </td>
+                <td>
+                    @Html.CheckBoxFor(it => it.BlockedDices.Dice2IsBlocked)
+                </td>
+                <td>
+                    @Html.CheckBoxFor(it => it.BlockedDices.Dice3IsBlocked)
+                </td>
+                <td>
+                    @Html.CheckBoxFor(it => it.BlockedDices.Dice4IsBlocked)
+                </td>
+                <td>
+                    @Html.CheckBoxFor(it => it.BlockedDices.Dice5IsBlocked)
+                </td>
+            </tr>
+            }
+
+        </table>
+
+
+        <input type="submit" name="holdDices" value="Wybierz" style="text-align:center" />
+
+
+    </form>
+</div>
+
 <div id="right">
     <Table border="1">
         <th>
-            
-                Player
-            </th>
-            <th>
-                Score
-            </th>
+
+            Player
+        </th>
+        <th>
+            Score
+        </th>
 
         @foreach (var player in Model.Players)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(pl => player.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(sc => player.Total)
-                    </td>
-                </tr>
-            }
-        </Table>
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(pl => player.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(sc => player.Total)
+                </td>
+            </tr>
+        }
+    </Table>
 </div>
 <div id="footer">footer</div>

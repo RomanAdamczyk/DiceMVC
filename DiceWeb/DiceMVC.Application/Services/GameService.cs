@@ -83,5 +83,43 @@ namespace DiceMVC.Application.Services
                 .ProjectTo<PlayerScoreVm>(_mapper.ConfigurationProvider).ToList();
             return playersScores;
         }
+        public DicesVm GetDices(int gameId, int playerId, int round, int lap)
+        {
+            var dices = _gameRepo.GetDicesRepo(gameId, playerId, round, lap)
+                .ProjectTo<DicesVm>(_mapper.ConfigurationProvider).AsQueryable().Single();
+            return dices;
+        }
+
+        public int CountValues(DicesVm dices, int value)
+        {
+            int sum = 0;
+            if (dices.Dice1 == value) sum++;
+            if (dices.Dice2 == value) sum++;
+            if (dices.Dice3 == value) sum++;
+            if (dices.Dice4 == value) sum++;
+            if (dices.Dice5 == value) sum++;
+            return sum;
+        }
+        public void GetDicesToSave(DicesVm dices)
+        {
+            var dicesToSave = _mapper.Map<Dices>(dices);
+            _gameRepo.SaveDices(dicesToSave);
+        }
+        public void NextLap(int gameId)
+        {
+            var game = GetGameById(gameId);
+            game.CurrentLap++;
+            _gameRepo.NextLapRepo(game);
+        }
+        public void NextPlayer (int gameId)
+        {
+            var game = GetGameById(gameId);//tylko początek
+        }
+        public void SaveBlockedDices(DicesVm dices)
+        {
+            var dicesToSave = _mapper.Map<Dices>(dices);
+            _gameRepo.SaveBlockedDicesRep(dicesToSave);
+        }
+
     }
 }

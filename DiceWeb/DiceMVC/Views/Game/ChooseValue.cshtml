@@ -1,0 +1,175 @@
+﻿@model DiceMVC.Application.ViewModels.Game.PlayerValueVM
+
+@{
+    ViewData["Title"] = "ChooseValue";
+}
+
+<h1>ChooseValue</h1>
+
+<h4>PlayerValueVM</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="ChooseValue">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Id" class="control-label"></label>
+                <input asp-for="Id" class="form-control" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ones" class="control-label"></label>
+                <input asp-for="Ones" class="form-control" />
+                <span asp-validation-for="Ones" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="OnesIsUsed" /> @Html.DisplayNameFor(model => model.OnesIsUsed)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="Twos" class="control-label"></label>
+                <input asp-for="Twos" class="form-control" />
+                <span asp-validation-for="Twos" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="TwosIsUsed" /> @Html.DisplayNameFor(model => model.TwosIsUsed)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="Threes" class="control-label"></label>
+                <input asp-for="Threes" class="form-control" />
+                <span asp-validation-for="Threes" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="ThreesIsUsed" /> @Html.DisplayNameFor(model => model.ThreesIsUsed)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="Fours" class="control-label"></label>
+                <input asp-for="Fours" class="form-control" />
+                <span asp-validation-for="Fours" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="FoursIsUsed" /> @Html.DisplayNameFor(model => model.FoursIsUsed)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="Fives" class="control-label"></label>
+                <input asp-for="Fives" class="form-control" />
+                <span asp-validation-for="Fives" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="FivesIsUsed" /> @Html.DisplayNameFor(model => model.FivesIsUsed)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="Sixs" class="control-label"></label>
+                <input asp-for="Sixs" class="form-control" />
+                <span asp-validation-for="Sixs" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="SixsIsUsed" /> @Html.DisplayNameFor(model => model.SixsIsUsed)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bonus" class="control-label"></label>
+                <input asp-for="Bonus" class="form-control" />
+                <span asp-validation-for="Bonus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Triple" class="control-label"></label>
+                <input asp-for="Triple" class="form-control" />
+                <span asp-validation-for="Triple" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="TripleIsUsed" /> @Html.DisplayNameFor(model => model.TripleIsUsed)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="Fourfold" class="control-label"></label>
+                <input asp-for="Fourfold" class="form-control" />
+                <span asp-validation-for="Fourfold" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="FourfoldIsUsed" /> @Html.DisplayNameFor(model => model.FourfoldIsUsed)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="Full" class="control-label"></label>
+                <input asp-for="Full" class="form-control" />
+                <span asp-validation-for="Full" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="FullIsUsed" /> @Html.DisplayNameFor(model => model.FullIsUsed)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="SmallStraight" class="control-label"></label>
+                <input asp-for="SmallStraight" class="form-control" />
+                <span asp-validation-for="SmallStraight" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="SmallStraightIsUsed" /> @Html.DisplayNameFor(model => model.SmallStraightIsUsed)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="HighStraight" class="control-label"></label>
+                <input asp-for="HighStraight" class="form-control" />
+                <span asp-validation-for="HighStraight" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="HighStraightIsUsed" /> @Html.DisplayNameFor(model => model.HighStraightIsUsed)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="General" class="control-label"></label>
+                <input asp-for="General" class="form-control" />
+                <span asp-validation-for="General" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="GeneralIsUsed" /> @Html.DisplayNameFor(model => model.GeneralIsUsed)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="Chance" class="control-label"></label>
+                <input asp-for="Chance" class="form-control" />
+                <span asp-validation-for="Chance" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="ChanceIsUsed" /> @Html.DisplayNameFor(model => model.ChanceIsUsed)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="Total" class="control-label"></label>
+                <input asp-for="Total" class="form-control" />
+                <span asp-validation-for="Total" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
