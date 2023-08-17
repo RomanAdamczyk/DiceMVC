@@ -46,6 +46,7 @@ namespace DiceMVC.Controllers
         {
             
             PlaygameVm model = new PlaygameVm() { GameId = gameId };
+            _gameService.NextLap(model.GameId);
             var game = _gameService.GetGameById(gameId);
             model.CurrentPlayer = _gameService.GetCurrentPlayerValue(gameId, game.CurrentPlayerId);
             model.Players = _gameService.GetPlayersScores(gameId);
@@ -60,7 +61,7 @@ namespace DiceMVC.Controllers
             model.Dices[0].Dice5IsBlocked = false;
             for (int i=1;i<model.Lap;i++)
             {
-                model.Dices.Add(_gameService.GetDices(gameId, model.CurrentPlayer.Id, model.Round, i));
+                model.Dices.Add(_gameService.GetDices(gameId, model.CurrentPlayer.PlayerId, model.Round, i));
                 model.Dices[i].Dice1ImgPath = "/Images/" + model.Dices[i].Dice1.ToString() + ".png";
                 model.Dices[i].Dice2ImgPath = "/Images/" + model.Dices[i].Dice2.ToString() + ".png";
                 model.Dices[i].Dice3ImgPath = "/Images/" + model.Dices[i].Dice3.ToString() + ".png";
@@ -76,7 +77,6 @@ namespace DiceMVC.Controllers
 
             Random generator = new Random();
 
-            int sum;
             if (model.Dices[model.Lap - 1].Dice1IsBlocked)
             {
                 model.Dices[model.Lap].Dice1 = model.Dices[model.Lap - 1].Dice1;
@@ -84,7 +84,6 @@ namespace DiceMVC.Controllers
             {
                 model.Dices[model.Lap].Dice1 = generator.Next(1, 7);
             }
-            sum = model.Dices[model.Lap].Dice1;
             model.Dices[model.Lap].Dice1ImgPath = "/Images/" + model.Dices[model.Lap].Dice1.ToString() + ".png";
             if (model.Dices[model.Lap - 1].Dice2IsBlocked)
             {
@@ -94,7 +93,6 @@ namespace DiceMVC.Controllers
             {
                 model.Dices[model.Lap].Dice2 = generator.Next(1, 7);
             }
-            sum = sum + model.Dices[model.Lap].Dice2;
             model.Dices[model.Lap].Dice2ImgPath = "/Images/" + model.Dices[model.Lap].Dice2.ToString() + ".png";
             if (model.Dices[model.Lap - 1].Dice3IsBlocked)
             {
@@ -104,7 +102,6 @@ namespace DiceMVC.Controllers
             {
                 model.Dices[model.Lap].Dice3 = generator.Next(1, 7);
             }
-            sum = sum + model.Dices[model.Lap].Dice3;
             model.Dices[model.Lap].Dice3ImgPath = "/Images/" + model.Dices[model.Lap].Dice3.ToString() + ".png";
             if (model.Dices[model.Lap - 1].Dice4IsBlocked)
             {
@@ -114,7 +111,6 @@ namespace DiceMVC.Controllers
             {
                 model.Dices[model.Lap].Dice4 = generator.Next(1, 7);
             }
-            sum = sum + model.Dices[model.Lap].Dice4;
             model.Dices[model.Lap].Dice4ImgPath = "/Images/" + model.Dices[model.Lap].Dice4.ToString() + ".png";
             if (model.Dices[model.Lap - 1].Dice5IsBlocked)
             {
@@ -124,78 +120,64 @@ namespace DiceMVC.Controllers
             {
                 model.Dices[model.Lap].Dice5 = generator.Next(1, 7);
             }
-            sum = sum + model.Dices[model.Lap].Dice5;
             model.Dices[model.Lap].Dice5ImgPath = "/Images/" + model.Dices[model.Lap].Dice5.ToString() + ".png";
-           
             model.OptionalValues = new PlayerValueVM();
-            model.OptionalValues.Ones = _gameService.CountValues(model.Dices[model.Lap], 1);
-            model.OptionalValues.Twos = _gameService.CountValues(model.Dices[model.Lap], 2) * 2;
-            model.OptionalValues.Threes = _gameService.CountValues(model.Dices[model.Lap], 3) * 3;
-            model.OptionalValues.Fours = _gameService.CountValues(model.Dices[model.Lap], 4) * 4;
-            model.OptionalValues.Fives = _gameService.CountValues(model.Dices[model.Lap], 5) * 5;
-            model.OptionalValues.Sixs = _gameService.CountValues(model.Dices[model.Lap], 6) * 6;
-            int max = 1;
-            for (int i=1;i<=6;i++)
-            {
-                switch (_gameService.CountValues(model.Dices[model.Lap], i))
-                { case 5:
-                        model.OptionalValues.General = 50;
-                        max = 5;
-                        break;
-                    case 4:
-                        model.OptionalValues.Fourfold = sum;
-                        max = 4;
-                        break;
-                    case 3:
-                        model.OptionalValues.Triple = sum;
-                        max = 3;
-                        for (int j = 1; j <= 6; j++)
-                        {
-                            if (_gameService.CountValues(model.Dices[model.Lap], j) == 2)
-                                model.OptionalValues.Full = 25;
-                        }
-                        break;
-                    case 2:
-                        if (max == 1) max = 2;
-                        break;
-                }
-            }
-            if (max == 1)
-                if (_gameService.CountValues(model.Dices[model.Lap], 1) == 0) model.OptionalValues.HighStraight = 40;
-                else if (_gameService.CountValues(model.Dices[model.Lap], 6) == 0) model.OptionalValues.SmallStraight = 30;
-          
+            model.OptionalValues =  _gameService.CountOptionalValues(model.Dices[model.Lap]);                    
             _gameService.GetDicesToSave(model.Dices[model.Lap]);
-            _gameService.NextLap(model.GameId);
 
             return View(model);
         }
         [HttpPost]
         public IActionResult GamePlay(PlaygameVm model)
         {
-            var dices = _gameService.GetDices(model.GameId, model.CurrentPlayer.Id, model.Round, model.Lap);
-            if (model.BlockedDices.Dice1IsBlocked) dices.Dice1IsBlocked = true;
-            if (model.BlockedDices.Dice2IsBlocked) dices.Dice2IsBlocked = true;
-            if (model.BlockedDices.Dice3IsBlocked) dices.Dice3IsBlocked = true;
-            if (model.BlockedDices.Dice4IsBlocked) dices.Dice4IsBlocked = true;
-            if (model.BlockedDices.Dice5IsBlocked) dices.Dice5IsBlocked = true;
-            _gameService.SaveBlockedDices(dices);
-
-         //   if (model.Lap ==2)
-         //   {
-         //       _gameService.NextPlayer(model.GameId);
-         //   }
+            var dices = _gameService.GetDices(model.GameId, model.CurrentPlayer.PlayerId, model.Round, model.Lap);
+            if (model.Lap < 3)
+            {
+                if (model.BlockedDices.Dice1IsBlocked) dices.Dice1IsBlocked = true;
+                if (model.BlockedDices.Dice2IsBlocked) dices.Dice2IsBlocked = true;
+                if (model.BlockedDices.Dice3IsBlocked) dices.Dice3IsBlocked = true;
+                if (model.BlockedDices.Dice4IsBlocked) dices.Dice4IsBlocked = true;
+                if (model.BlockedDices.Dice5IsBlocked) dices.Dice5IsBlocked = true;
+                _gameService.SaveBlockedDices(dices);
+            }
+           else
+            {
+                return RedirectToAction("ChooseValue", "Game", new { gameId = model.GameId });
+            }
             return RedirectToAction("GamePlay", "Game", new { gameId = model.GameId });
         }
         [HttpGet]
-        public IActionResult ChooseValue (PlayerValueVM model)
+        public IActionResult ChooseValue (int gameId)
         {
+            PlaygameVm model = new PlaygameVm() { GameId = gameId };
+            var game = _gameService.GetGameById(gameId);
+            model.CurrentPlayer = _gameService.GetCurrentPlayerValue(gameId, game.CurrentPlayerId);
+            model.Players = _gameService.GetPlayersScores(gameId);
+            model.Round = game.CurrentRound;
+            model.Lap = game.CurrentLap;
+            var dices = _gameService.GetDices(model.GameId, model.CurrentPlayer.PlayerId, model.Round, 3);
+            model.Dices = new List<DicesVm>();
+            model.Dices.Add(dices);
+            model.OptionalValues = new PlayerValueVM();
+            _gameService.CountOptionalValues(dices);
             return View(model);
         }
         [HttpPost]
-        public IActionResult ChooseValue()
+        public IActionResult ChooseValue(PlaygameVm model)
         {
+            UpdateValuesVm newValues = new UpdateValuesVm();
+            newValues.GameId = model.GameId;
+            newValues.PlayerId = model.CurrentPlayer.PlayerId;
+            newValues.ChooseValue = model.ChooseValue;
+            newValues.CurrentValues = new PlayerValueVM();
+            newValues.CurrentValues = model.CurrentPlayer;
+            newValues.OptionalValues = new PlayerValueVM();
+            newValues.OptionalValues = model.OptionalValues;
+
+            _gameService.UpdateValue(newValues);
             return View();
         }
+
 
     }
 }

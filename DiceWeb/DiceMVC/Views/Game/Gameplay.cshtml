@@ -208,8 +208,15 @@
             </td>
             <td>
                 @if (Model.CurrentPlayer.ChanceIsUsed)
+                {
+                    <td>
                     @Html.DisplayFor(model => model.CurrentPlayer.Chance)
-                else @Html.Display(" - ");
+                    </td>
+                }
+                else { 
+        <td style="color:green">
+            @Html.DisplayFor(model => model.OptionalValues.Chance)
+        </td>}
             </td>
         </tr>
         <tr>
@@ -228,7 +235,7 @@
         @Html.HiddenFor(h => h.Dices)
         @Html.HiddenFor(h => h.Dices[Model.Lap].Id)
         @Html.HiddenFor(h => h.CurrentPlayer)
-        @Html.HiddenFor(h => h.CurrentPlayer.Id)
+        @Html.HiddenFor(h => h.CurrentPlayer.PlayerId)
         @Html.HiddenFor(h => h.Round)
         @Html.HiddenFor(h => h.Lap)
         <table>
@@ -266,24 +273,36 @@
                 }
 
         }
-            <tr>
-                <td>
-                    @Html.CheckBoxFor(it => it.BlockedDices.Dice1IsBlocked)
-                </td>
-                <td>
-                    @Html.CheckBoxFor(it => it.BlockedDices.Dice2IsBlocked)
-                </td>
-                <td>
-                    @Html.CheckBoxFor(it => it.BlockedDices.Dice3IsBlocked)
-                </td>
-                <td>
-                    @Html.CheckBoxFor(it => it.BlockedDices.Dice4IsBlocked)
-                </td>
-                <td>
-                    @Html.CheckBoxFor(it => it.BlockedDices.Dice5IsBlocked)
-                </td>
-            </tr>
+            @if (Model.Lap < 3)
+            {
+                <tr>
+                    <td>
+                        @Html.CheckBoxFor(it => it.BlockedDices.Dice1IsBlocked)
+                    </td>
+                    <td>
+                        @Html.CheckBoxFor(it => it.BlockedDices.Dice2IsBlocked)
+                    </td>
+                    <td>
+                        @Html.CheckBoxFor(it => it.BlockedDices.Dice3IsBlocked)
+                    </td>
+                    <td>
+                        @Html.CheckBoxFor(it => it.BlockedDices.Dice4IsBlocked)
+                    </td>
+                    <td>
+                        @Html.CheckBoxFor(it => it.BlockedDices.Dice5IsBlocked)
+                    </td>
+                </tr>
+
             }
+            else
+            {
+                @Html.HiddenFor(h => h.BlockedDices.Dice1IsBlocked)
+                @Html.HiddenFor(h => h.BlockedDices.Dice2IsBlocked)
+                @Html.HiddenFor(h => h.BlockedDices.Dice3IsBlocked)
+                @Html.HiddenFor(h => h.BlockedDices.Dice4IsBlocked)
+                @Html.HiddenFor(h => h.BlockedDices.Dice5IsBlocked)
+            }
+
 
         </table>
 

@@ -24,6 +24,7 @@ namespace DiceMVC.Application.Interfaces
         void NextLap(int gameId);
         void NextPlayer(int gameId);
         void SaveBlockedDices(DicesVm dices);
+        PlayerValueVM CountOptionalValues(DicesVm dices);
 
 
     }

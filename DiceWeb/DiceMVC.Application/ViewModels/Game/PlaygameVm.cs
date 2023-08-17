@@ -18,6 +18,7 @@ namespace DiceMVC.Application.ViewModels.Game
         public List<DicesVm> Dices { get; set; }
         public DicesVm BlockedDices { get; set; }
         public PlayerValueVM OptionalValues { get; set; }
+        public string ChooseValue { get; set; }
 
     }
 }

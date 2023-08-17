@@ -52,10 +52,13 @@ namespace DiceMVC.Infrastructure.Repositories
             _context.Entry(game).Property("CurrentPlayerId").IsModified = true;
             _context.SaveChanges();
         }
-        public int GetFirstPlayerId(int gameId)
+        public IQueryable<int> GetFirstPlayerId(int gameId)
         {
-            var item = _context.GamePlayer.FirstOrDefault(p => p.GameId == gameId);
-            return item.PlayerId;
+            var playerId = from item in _context.PlayersTurns
+                           where item.GameId.Equals(gameId)
+                           where item.TurnNo.Equals(0)
+                           select item.PlayerId;
+            return playerId;
         }
         public IQueryable<Dices> GetDicesRepo(int gameId, int playerId, int round, int lap)
         {
@@ -96,7 +99,74 @@ namespace DiceMVC.Infrastructure.Repositories
             if (dices.Dice4IsBlocked) _context.Entry(dices).Property("Dice4IsBlocked").IsModified = true;
             if (dices.Dice5IsBlocked) _context.Entry(dices).Property("Dice5IsBlocked").IsModified = true;
             _context.SaveChanges();
-
+        }
+        public IQueryable<PlayerValue> GetPlayerValue(int gameId, int playerId)
+        {
+            var playerValues = from values in _context.PlayerValues
+                               where values.GameId.Equals(gameId)
+                               where values.PlayerId.Equals(playerId)
+                               select values;
+            return playerValues;
+        }
+        public void UpdateValuesRep(PlayerValue playerValue, string chooseValue)
+        {
+            _context.Attach(playerValue);
+            switch (chooseValue)
+            {
+                case "Ones":
+                    _context.Entry(playerValue).Property("Ones").IsModified = true;
+                    _context.Entry(playerValue).Property("OnesIsUsed").IsModified = true;
+                    break;
+                case "Twos":
+                    _context.Entry(playerValue).Property("Twos").IsModified = true;
+                    _context.Entry(playerValue).Property("TwosIsUsed").IsModified = true;
+                    break;
+                case "Threes":
+                    _context.Entry(playerValue).Property("Threes").IsModified = true;
+                    _context.Entry(playerValue).Property("ThreesIsUsed").IsModified = true;
+                    break;
+                case "Fours":
+                    _context.Entry(playerValue).Property("Fours").IsModified = true;
+                    _context.Entry(playerValue).Property("FoursIsUsed").IsModified = true;
+                    break;
+                case "Fives":
+                    _context.Entry(playerValue).Property("Fives").IsModified = true;
+                    _context.Entry(playerValue).Property("FivesIsUsed").IsModified = true;
+                    break;
+                case "Sixs":
+                    _context.Entry(playerValue).Property("Sixs").IsModified = true;
+                    _context.Entry(playerValue).Property("SixsIsUsed").IsModified = true;
+                    break;
+                case "Triple":
+                    _context.Entry(playerValue).Property("Triple").IsModified = true;
+                    _context.Entry(playerValue).Property("TripleIsUsed").IsModified = true;
+                    break;
+                case "Fourfold":
+                    _context.Entry(playerValue).Property("Fourfold").IsModified = true;
+                    _context.Entry(playerValue).Property("FourfoldIsUsed").IsModified = true;
+                    break;
+                case "Full":
+                    _context.Entry(playerValue).Property("Full").IsModified = true;
+                    _context.Entry(playerValue).Property("FullIsUsed").IsModified = true;
+                    break;
+                case "SmallStraight":
+                    _context.Entry(playerValue).Property("SmallStraight").IsModified = true;
+                    _context.Entry(playerValue).Property("SmallStraightIsUsed").IsModified = true;
+                    break;
+                case "HighStraight":
+                    _context.Entry(playerValue).Property("HighStraight").IsModified = true;
+                    _context.Entry(playerValue).Property("HighIsUsed").IsModified = true; break;
+                case "General":
+                    _context.Entry(playerValue).Property("General").IsModified = true;
+                    _context.Entry(playerValue).Property("GeneralIsUsed").IsModified = true;
+                    break; 
+                case "Chance":
+                    _context.Entry(playerValue).Property("Chance").IsModified = true;
+                    _context.Entry(playerValue).Property("ChanceIsUsed").IsModified = true;
+                    break;
+            }
+            _context.Entry(playerValue).Property("Total").IsModified = true;
+            _context.SaveChanges();
         }
     }
 }

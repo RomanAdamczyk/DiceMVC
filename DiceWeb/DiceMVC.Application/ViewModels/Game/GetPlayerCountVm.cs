@@ -17,7 +17,7 @@ namespace DiceMVC.Application.ViewModels.Game
             profile.CreateMap<GetPlayerCountVm, DiceMVC.Domain.Model.Game>()
                 .ForMember(s => s.CurrentPlayerId, opt => opt.MapFrom(d => 0))
                 .ForMember(s => s.CurrentRound, opt => opt.MapFrom(d => 1))
-                .ForMember(s => s.CurrentLap, opt => opt.MapFrom(d => 1))
+                .ForMember(s => s.CurrentLap, opt => opt.MapFrom(d => 0))
                 .ForMember(s => s.IsActive, opt => opt.MapFrom(d => false));
         }
         public class GetPlayerCountValidator : AbstractValidator<GetPlayerCountVm>

@@ -13,6 +13,7 @@ namespace DiceMVC.Application.ViewModels.Game
         public int Id { get; set; }
         public string Name { get; set; }
         public int Total { get; set; }
+        //public int PlayerNo { get; set; }
         public void Mapping(Profile profile)
         {
             profile.CreateMap<DiceMVC.Domain.Model.PlayerValue, PlayerScoreVm>()

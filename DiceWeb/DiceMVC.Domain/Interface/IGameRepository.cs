@@ -15,11 +15,13 @@ namespace DiceMVC.Domain.Interface
         IQueryable<Game> GetActiveGames();
         IQueryable<Player> GetPlayersToGame(int idGame);
         void UpdateEndingCreate(Game game);
-        int GetFirstPlayerId(int gameId);
+        IQueryable<int> GetFirstPlayerId(int gameId);
         IQueryable<Dices> GetDicesRepo(int gameId, int playerId, int round, int lap);
         IQueryable<int> GetLap(int gameId, int playerId, int round);
         void SaveDices(Dices dices);
         void NextLapRepo(Game game);
         void SaveBlockedDicesRep(Dices dices);
+        void UpdateValuesRep(PlayerValue playerValue, string chooseValue);
+        IQueryable<PlayerValue> GetPlayerValue(int gameId, int playerId);
     }
 }
