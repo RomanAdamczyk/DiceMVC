@@ -111,9 +111,21 @@ namespace DiceMVC.Application.Services
             game.CurrentLap++;
             _gameRepo.NextLapRepo(game);
         }
-        public void NextPlayer (int gameId)
+        public void NextRound(int gameId)
         {
-            var game = GetGameById(gameId);//tylko początek
+            var game = GetGameById(gameId);
+            game.CurrentRound++;
+            game.CurrentPlayerId = _gameRepo.GetFirstPlayerId(gameId).AsQueryable().Single();
+            game.CurrentLap = 0;
+            _gameRepo.NextRoundRepo(game);
+        }
+        public void NextPlayer (int gameId, int playerTurn)
+        {
+            var game = GetGameById(gameId);
+            var playerId = _gameRepo.GetPlayerIdFromPlayerTurn(gameId, playerTurn).AsQueryable().Single();
+            game.CurrentPlayerId = playerId;
+            game.CurrentLap = 0;
+            _gameRepo.NextPlayerRepo(game);
         }
         public void SaveBlockedDices(DicesVm dices)
         {
@@ -170,71 +182,79 @@ namespace DiceMVC.Application.Services
                 case "Ones":
                     values.Ones = playerValues.OptionalValues.Ones;
                     values.OnesIsUsed = true;
-                    values.Total += playerValues.CurrentValues.Ones;
+                    values.Total += playerValues.OptionalValues.Ones;
                     break;
                 case "Twos":
                     values.Twos = playerValues.OptionalValues.Twos;
                     values.TwosIsUsed = true;
-                    values.Total += playerValues.CurrentValues.Twos;
+                    values.Total += playerValues.OptionalValues.Twos;
                     break;
                 case "Threes":
                     values.Threes = playerValues.OptionalValues.Threes;
                     values.ThreesIsUsed = true;
-                    values.Total += playerValues.CurrentValues.Threes;
+                    values.Total += playerValues.OptionalValues.Threes;
                     break;
                 case "Fours":
                     values.Fours = playerValues.OptionalValues.Fours;
                     values.FoursIsUsed = true;
-                    values.Total += playerValues.CurrentValues.Fours;
+                    values.Total += playerValues.OptionalValues.Fours;
                     break;
                 case "Fives":
                     values.Fives= playerValues.OptionalValues.Fives;
                     values.FivesIsUsed = true;
-                    values.Total += playerValues.CurrentValues.Fives;
+                    values.Total += playerValues.OptionalValues.Fives;
                     break;
                 case "Sixs":
                     values.Sixs= playerValues.OptionalValues.Sixs;
                     values.SixsIsUsed = true;
-                    values.Total += playerValues.CurrentValues.Sixs;
+                    values.Total += playerValues.OptionalValues.Sixs;
                     break;
                 case "Triple":
                     values.Triple= playerValues.OptionalValues.Triple;
                     values.TripleIsUsed= true;
-                    values.Total += playerValues.CurrentValues.Triple;
+                    values.Total += playerValues.OptionalValues.Triple;
                     break;
                 case "Fourfold":
                     values.Fourfold = playerValues.OptionalValues.Fourfold;
                     values.FourfoldIsUsed = true;
-                    values.Total += playerValues.CurrentValues.Fourfold;
+                    values.Total += playerValues.OptionalValues.Fourfold;
                     break;
                 case "Full":
                     values.Full = playerValues.OptionalValues.Full;
                     values.FullIsUsed = true;
-                    values.Total += playerValues.CurrentValues.Full;
+                    values.Total += playerValues.OptionalValues.Full;
                     break;
                 case "SmallStraight":
                     values.SmallStraight = playerValues.OptionalValues.SmallStraight;
                     values.SmallStraightIsUsed = true;
-                    values.Total += playerValues.CurrentValues.SmallStraight;
+                    values.Total += playerValues.OptionalValues.SmallStraight;
                     break;
                 case "HighStraight":
                     values.HighStraight = playerValues.OptionalValues.HighStraight;
                     values.HighStraightIsUsed = true;
-                    values.Total += playerValues.CurrentValues.HighStraight;
+                    values.Total += playerValues.OptionalValues.HighStraight;
                     break;
                 case "General":
                     values.General = playerValues.OptionalValues.General;
                     values.GeneralIsUsed= true;
-                    values.Total += playerValues.CurrentValues.General;
+                    values.Total += playerValues.OptionalValues.General;
                     break;
                 case "Chance":
                     values.Chance = playerValues.OptionalValues.Chance;
                     values.ChanceIsUsed= true;
-                    values.Total += playerValues.CurrentValues.Chance;
+                    values.Total += playerValues.OptionalValues.Chance;
                     break;
             }
-            
+            _gameRepo.UpdateValuesRep(values, playerValues.ChooseValue);    
         }
-
+        public int GetPlayerTurn(int gameId, int playerId)
+        {
+            var playerTurn = _gameRepo.GetPlayerTurnRepo(gameId, playerId).AsQueryable().Single();
+            return playerTurn;
+        }
+        public int GetPlayersCount(int gameId)
+        {
+            return _gameRepo.GetPlayersCountRep(gameId).AsQueryable().Single();
+        }
     }
 }

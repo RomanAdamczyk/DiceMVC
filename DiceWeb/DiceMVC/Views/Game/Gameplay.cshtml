@@ -206,9 +206,8 @@
             <td>
                 @Html.DisplayNameFor(model => model.CurrentPlayer.Chance)
             </td>
-            <td>
-                @if (Model.CurrentPlayer.ChanceIsUsed)
-                {
+            @if (Model.CurrentPlayer.ChanceIsUsed)
+            {
                     <td>
                     @Html.DisplayFor(model => model.CurrentPlayer.Chance)
                     </td>
@@ -217,7 +216,7 @@
         <td style="color:green">
             @Html.DisplayFor(model => model.OptionalValues.Chance)
         </td>}
-            </td>
+            
         </tr>
         <tr>
             <td>
@@ -301,8 +300,190 @@
                 @Html.HiddenFor(h => h.BlockedDices.Dice3IsBlocked)
                 @Html.HiddenFor(h => h.BlockedDices.Dice4IsBlocked)
                 @Html.HiddenFor(h => h.BlockedDices.Dice5IsBlocked)
-            }
+                     <tr>
 
+                        @if (!Model.CurrentPlayer.OnesIsUsed)
+                        {
+                            <td>
+                                @Html.DisplayNameFor(model => model.CurrentPlayer.Ones)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.OptionalValues.Ones)
+                            </td>
+                            <td>
+                                <input type="radio" class="form-check-input" value="Ones" asp-for="ChooseValue" />
+                            </td>
+                        }
+                    </tr>
+                    <tr>
+                        @if (!Model.CurrentPlayer.TwosIsUsed)
+                        {
+                            <td>
+                                @Html.DisplayNameFor(model => model.CurrentPlayer.Twos)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.OptionalValues.Twos)
+                            </td>
+                            <td>
+                                <input type="radio" class="form-check-input" value="Twos" asp-for="ChooseValue" />
+                            </td>
+                        }
+                    </tr>
+                    <tr>
+                        @if (!Model.CurrentPlayer.ThreesIsUsed)
+                        {
+                            <td>
+                                @Html.DisplayNameFor(model => model.CurrentPlayer.Threes)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.OptionalValues.Threes)
+                            </td>
+                            <td>
+                                <input type="radio" class="form-check-input" value="Threes" asp-for="ChooseValue" />
+                            </td>
+                        }
+                    </tr>
+                    <tr>
+                        @if (!Model.CurrentPlayer.FoursIsUsed)
+                        {
+                            <td>
+                                @Html.DisplayNameFor(model => model.CurrentPlayer.Fours)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.OptionalValues.Fours)
+                            </td>
+                            <td>
+                                <input type="radio" class="form-check-input" value="Fours" asp-for="ChooseValue" />
+                            </td>
+                        }
+                    </tr>
+                    <tr>
+                        @if (!Model.CurrentPlayer.FivesIsUsed)
+                        {
+                            <td>
+                                @Html.DisplayNameFor(model => model.CurrentPlayer.Fives)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.OptionalValues.Fives)
+                            </td>
+                            <td>
+                                <input type="radio" class="form-check-input" value="Fives" asp-for="ChooseValue" />
+                            </td>
+                        }
+                    </tr>
+                    <tr>
+                        @if (!Model.CurrentPlayer.SixsIsUsed)
+                        {
+                            <td>
+                                @Html.DisplayNameFor(model => model.CurrentPlayer.Sixs)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.OptionalValues.Sixs)
+                            </td>
+                            <td>
+                                <input type="radio" class="form-check-input" value="Sixs" asp-for="ChooseValue" />
+                            </td>
+                        }
+                    </tr>
+                    <tr>
+                        @if (!Model.CurrentPlayer.TripleIsUsed)
+                        {
+                            <td>
+                                @Html.DisplayNameFor(model => model.CurrentPlayer.Triple)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.OptionalValues.Triple)
+                            </td>
+                            <td>
+                                <input type="radio" class="form-check-input" value="Triple" asp-for="ChooseValue" />
+                            </td>
+                        }
+                    </tr>
+                    <tr>
+                        @if (!Model.CurrentPlayer.FourfoldIsUsed)
+                        {
+                            <td>
+                                @Html.DisplayNameFor(model => model.CurrentPlayer.Fourfold)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.OptionalValues.Fourfold)
+                            </td>
+                            <td>
+                                <input type="radio" class="form-check-input" value="Fourfold" asp-for="ChooseValue" />
+                            </td>
+                        }
+                    </tr>
+                    <tr>
+                        @if (!Model.CurrentPlayer.FullIsUsed)
+                        {
+                            <td>
+                                @Html.DisplayNameFor(model => model.CurrentPlayer.Full)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.OptionalValues.Full)
+                            </td>
+                            <td>
+                                <input type="radio" class="form-check-input" value="Full" asp-for="ChooseValue" />
+                            </td>
+                        }
+                    </tr>
+                    <tr>
+                        @if (!Model.CurrentPlayer.SmallStraightIsUsed)
+                        {
+                            <td>
+                                @Html.DisplayNameFor(model => model.CurrentPlayer.SmallStraight)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.OptionalValues.SmallStraight)
+                            </td>
+                            <td>
+                                <input type="radio" class="form-check-input" value="SmallStraight" asp-for="ChooseValue" />
+                            </td>
+                        }
+                    </tr>
+                    <tr>
+                        @if (!Model.CurrentPlayer.HighStraightIsUsed)
+                        {
+                            <td>
+                                @Html.DisplayNameFor(model => model.CurrentPlayer.HighStraight)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.OptionalValues.HighStraight)
+                            </td>
+                            <td>
+                                <input type="radio" class="form-check-input" value="HightStraight" asp-for="ChooseValue" />
+                            </td>
+                        }
+                    </tr>
+                    <tr>
+                        @if (!Model.CurrentPlayer.GeneralIsUsed)
+                        {
+                            <td>
+                                @Html.DisplayNameFor(model => model.CurrentPlayer.General)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.OptionalValues.General)
+                            </td>
+                            <td>
+                                <input type="radio" class="form-check-input" value="General" asp-for="ChooseValue" />
+                            </td>
+                        }
+                    </tr>
+                    <tr>
+                        @if (!Model.CurrentPlayer.ChanceIsUsed)
+                        {
+                            <td>
+                                @Html.DisplayNameFor(model => model.CurrentPlayer.Chance)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.OptionalValues.Chance)
+                            </td>
+                            <td>
+                                <input type="radio" class="form-check-input" value="Chance" asp-for="ChooseValue" />
+                            </td>
+                        }
+                    </tr>
+            }
 
         </table>
 

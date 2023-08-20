@@ -12,7 +12,7 @@ namespace DiceMVC.Application.Interfaces
     public interface IGameService
     {
         int AddGame(GetPlayerCountVm game);
-       // bool PlayerNoUp(int gameId);
+
         ListOfSavedGamesVm GetGamesToList();
         void EndingCreate(int gameId);
         Game GetGameById(int gameId);
@@ -22,10 +22,13 @@ namespace DiceMVC.Application.Interfaces
         int CountValues(DicesVm dices, int value);
         void GetDicesToSave(DicesVm dices);
         void NextLap(int gameId);
-        void NextPlayer(int gameId);
+        void NextRound(int gameId);
+        void NextPlayer(int gameId, int playerTurn);
         void SaveBlockedDices(DicesVm dices);
         PlayerValueVM CountOptionalValues(DicesVm dices);
-
+        void UpdateValue(UpdateValuesVm playerValues);
+        int GetPlayerTurn(int gameId, int playerId);
+        int GetPlayersCount(int gameId);
 
     }
 }

@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace DiceMVC.Application.ViewModels.Game
 {
-    class UpdateValuesVm
+    public class UpdateValuesVm
     {
+        public int GameId { get; set; }
+        public int PlayerId { get; set; }
+        public PlayerValueVM CurrentValues { get; set; }
+        public PlayerValueVM OptionalValues { get; set; }
+        public string ChooseValue { get; set; }
     }
 }

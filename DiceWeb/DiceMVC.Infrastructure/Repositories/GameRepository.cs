@@ -79,6 +79,13 @@ namespace DiceMVC.Infrastructure.Repositories
                              select dices.Lap;
             return listOfLaps;
         }
+        public IQueryable<int> GetPlayersCountRep(int idGame)
+        {
+            var playersCount = from game in _context.Games
+                               where game.Id.Equals(idGame)
+                               select game.PlayerCount;
+            return playersCount;
+        }
         public void SaveDices(Dices dices)
         {
             _context.Dices.Add(dices);
@@ -87,6 +94,21 @@ namespace DiceMVC.Infrastructure.Repositories
         public void NextLapRepo (Game game)
         {
             _context.Attach(game);
+            _context.Entry(game).Property("CurrentLap").IsModified = true;
+            _context.SaveChanges();
+        }
+        public void NextRoundRepo(Game game)
+        {
+            _context.Attach(game);
+            _context.Entry(game).Property("CurrentRound").IsModified = true;
+            _context.Entry(game).Property("CurrentLap").IsModified = true;
+            _context.Entry(game).Property("CurrentPlayerId").IsModified = true;
+            _context.SaveChanges();
+        }
+        public void NextPlayerRepo(Game game)
+        {
+            _context.Attach(game);
+            _context.Entry(game).Property("CurrentPlayerId").IsModified = true;
             _context.Entry(game).Property("CurrentLap").IsModified = true;
             _context.SaveChanges();
         }
@@ -167,6 +189,22 @@ namespace DiceMVC.Infrastructure.Repositories
             }
             _context.Entry(playerValue).Property("Total").IsModified = true;
             _context.SaveChanges();
+        }
+        public IQueryable<int> GetPlayerTurnRepo(int gameId, int playerId)
+        {
+            var playerTurn = from item in _context.PlayersTurns
+                           where item.GameId.Equals(gameId)
+                           where item.PlayerId.Equals(playerId)
+                           select item.TurnNo;
+            return playerTurn;
+        }
+        public IQueryable<int> GetPlayerIdFromPlayerTurn(int gameId, int playerTurn)
+        {
+            var playerId = from item in _context.PlayersTurns
+                             where item.GameId.Equals(gameId)
+                             where item.TurnNo.Equals(playerTurn)
+                             select item.PlayerId;
+            return playerId;
         }
     }
 }

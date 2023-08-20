@@ -142,7 +142,25 @@ namespace DiceMVC.Controllers
             }
            else
             {
-                return RedirectToAction("ChooseValue", "Game", new { gameId = model.GameId });
+                UpdateValuesVm newValues = new UpdateValuesVm();
+                newValues.GameId = model.GameId;
+                newValues.PlayerId = model.CurrentPlayer.PlayerId;
+                newValues.ChooseValue = model.ChooseValue;
+                newValues.CurrentValues = new PlayerValueVM();
+                newValues.CurrentValues = model.CurrentPlayer;
+                newValues.OptionalValues = new PlayerValueVM();
+                newValues.OptionalValues = _gameService.CountOptionalValues(dices);
+                _gameService.UpdateValue(newValues);
+                model.PlayersCount = _gameService.GetPlayersCount(model.GameId);
+                var playerTurn = _gameService.GetPlayerTurn(model.GameId, model.CurrentPlayer.PlayerId);
+                if (playerTurn < model.PlayersCount - 1) _gameService.NextPlayer(model.GameId, playerTurn + 1);
+                else
+                {
+                    if (model.Round < 13) _gameService.NextRound(model.GameId);
+                    else
+                    {//koniec gry
+                    }
+                }
             }
             return RedirectToAction("GamePlay", "Game", new { gameId = model.GameId });
         }
@@ -173,9 +191,19 @@ namespace DiceMVC.Controllers
             newValues.CurrentValues = model.CurrentPlayer;
             newValues.OptionalValues = new PlayerValueVM();
             newValues.OptionalValues = model.OptionalValues;
-
             _gameService.UpdateValue(newValues);
-            return View();
+            var playerTurn = _gameService.GetPlayerTurn(model.GameId, model.CurrentPlayer.PlayerId);
+            if (playerTurn < model.PlayersCount-1) _gameService.NextPlayer(model.GameId, playerTurn);
+            else
+            {
+                if (model.Round < 13) _gameService.NextRound(model.GameId);
+                else
+                {//koniec gry
+                }
+            }
+            
+                 //nowy gracz
+                return View();
         }
 
 
