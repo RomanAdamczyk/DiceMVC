@@ -165,6 +165,11 @@ namespace DiceMVC.Controllers
             return RedirectToAction("GamePlay", "Game", new { gameId = model.GameId });
         }
         [HttpGet]
+        public IActionResult EndGame(int gameId)
+        {
+            return RedirectToAction("Index", "Home");
+        }
+        [HttpGet]
         public IActionResult ChooseValue (int gameId)
         {
             PlaygameVm model = new PlaygameVm() { GameId = gameId };

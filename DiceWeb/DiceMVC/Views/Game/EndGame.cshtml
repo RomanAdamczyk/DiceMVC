@@ -1,0 +1,23 @@
+﻿@model DiceMVC.Application.ViewModels.Game.PlaygameVm
+
+@{
+    ViewData["Title"] = "EndGame";
+}
+
+<h1>EndGame</h1>
+<div id="header">
+    Zwyciecięzca 
+</div>
+<div>
+    @foreach (var player in Model.Players)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(pl => player.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(sc => player.Total)
+            </td>
+        </tr>
+    }
+</div>

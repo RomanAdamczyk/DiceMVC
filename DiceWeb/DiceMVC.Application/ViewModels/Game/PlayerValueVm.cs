@@ -45,7 +45,7 @@ namespace DiceMVC.Application.ViewModels.Game
         {
             profile.CreateMap<DiceMVC.Domain.Model.PlayerValue, PlayerValueVM>()
                 .ForMember(s => s.Name, opt => opt.MapFrom(d => d.Player.Name))
-                .ForMember(s => s.Total, opt => opt.MapFrom(d => 0))
+          //      .ForMember(s => s.Total, opt => opt.MapFrom(d => 0))
                 .ForMember(s => s.PlayerId, opt => opt.MapFrom(d => d.PlayerId));
         }
 

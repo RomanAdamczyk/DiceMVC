@@ -172,6 +172,7 @@ namespace DiceMVC.Application.Services
             if (max == 1)
                 if (CountValues(dices, 1) == 0) optionalValues.HighStraight = 40;
                 else if (CountValues(dices, 6) == 0) optionalValues.SmallStraight = 30;
+            optionalValues.Chance = dices.Dice1 + dices.Dice2 + dices.Dice3 + dices.Dice4 + dices.Dice5;
             return optionalValues;
         }
         public void UpdateValue(UpdateValuesVm playerValues)
