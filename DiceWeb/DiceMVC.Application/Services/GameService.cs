@@ -178,37 +178,69 @@ namespace DiceMVC.Application.Services
         public void UpdateValue(UpdateValuesVm playerValues)
         {
             var values = _gameRepo.GetPlayerValue(playerValues.GameId, playerValues.PlayerId).Single();
+            var school = playerValues.CurrentValues.Ones + playerValues.CurrentValues.Twos + playerValues.CurrentValues.Threes
+                + playerValues.CurrentValues.Fours + playerValues.CurrentValues.Fives + playerValues.CurrentValues.Sixs;
             switch (playerValues.ChooseValue)
             {
                 case "Ones":
                     values.Ones = playerValues.OptionalValues.Ones;
                     values.OnesIsUsed = true;
                     values.Total += playerValues.OptionalValues.Ones;
+                    if (playerValues.CurrentValues.Bonus == 0 && school + values.Ones >= 63)
+                    {
+                        values.Bonus = 50;
+                        values.Total += 50; 
+                    }
                     break;
                 case "Twos":
                     values.Twos = playerValues.OptionalValues.Twos;
                     values.TwosIsUsed = true;
                     values.Total += playerValues.OptionalValues.Twos;
+                    if (playerValues.CurrentValues.Bonus == 0 && school + values.Twos >= 63)
+                    {
+                        values.Bonus = 50;
+                        values.Total += 50;
+                    }
                     break;
                 case "Threes":
                     values.Threes = playerValues.OptionalValues.Threes;
                     values.ThreesIsUsed = true;
                     values.Total += playerValues.OptionalValues.Threes;
+                    if (playerValues.CurrentValues.Bonus == 0 && school + values.Threes >= 63)
+                    {
+                        values.Bonus = 50;
+                        values.Total += 50;
+                    }
                     break;
                 case "Fours":
                     values.Fours = playerValues.OptionalValues.Fours;
                     values.FoursIsUsed = true;
                     values.Total += playerValues.OptionalValues.Fours;
+                    if (playerValues.CurrentValues.Bonus == 0 && school + values.Fours >= 63)
+                    {
+                        values.Bonus = 50;
+                        values.Total += 50;
+                    }
                     break;
                 case "Fives":
                     values.Fives= playerValues.OptionalValues.Fives;
                     values.FivesIsUsed = true;
                     values.Total += playerValues.OptionalValues.Fives;
+                    if (playerValues.CurrentValues.Bonus == 0 && school + values.Fives >= 63)
+                    {
+                        values.Bonus = 50;
+                        values.Total += 50;
+                    }
                     break;
                 case "Sixs":
                     values.Sixs= playerValues.OptionalValues.Sixs;
                     values.SixsIsUsed = true;
                     values.Total += playerValues.OptionalValues.Sixs;
+                    if (playerValues.CurrentValues.Bonus == 0 && school + values.Sixs >= 63)
+                    {
+                        values.Bonus = 50;
+                        values.Total += 50;
+                    }
                     break;
                 case "Triple":
                     values.Triple= playerValues.OptionalValues.Triple;
@@ -256,6 +288,89 @@ namespace DiceMVC.Application.Services
         public int GetPlayersCount(int gameId)
         {
             return _gameRepo.GetPlayersCountRep(gameId).AsQueryable().Single();
+        }
+        public PlaygameVm TurnDices(int gameId)
+        {
+            PlaygameVm model = new PlaygameVm() { GameId = gameId };
+            var game = GetGameById(gameId);
+            model.CurrentPlayer = GetCurrentPlayerValue(gameId, game.CurrentPlayerId);
+            model.Players = GetPlayersScores(gameId);
+            model.Round = game.CurrentRound;
+            model.Lap = game.CurrentLap;
+            model.Dices = new List<DicesVm>();
+            model.Dices.Add(new DicesVm());
+            model.Dices[0].Dice1IsBlocked = false;
+            model.Dices[0].Dice2IsBlocked = false;
+            model.Dices[0].Dice3IsBlocked = false;
+            model.Dices[0].Dice4IsBlocked = false;
+            model.Dices[0].Dice5IsBlocked = false;
+            for (int i = 1; i < model.Lap; i++)
+            {
+                model.Dices.Add(GetDices(gameId, model.CurrentPlayer.PlayerId, model.Round, i));
+                model.Dices[i].Dice1ImgPath = "/Images/" + model.Dices[i].Dice1.ToString() + ".png";
+                model.Dices[i].Dice2ImgPath = "/Images/" + model.Dices[i].Dice2.ToString() + ".png";
+                model.Dices[i].Dice3ImgPath = "/Images/" + model.Dices[i].Dice3.ToString() + ".png";
+                model.Dices[i].Dice4ImgPath = "/Images/" + model.Dices[i].Dice4.ToString() + ".png";
+                model.Dices[i].Dice5ImgPath = "/Images/" + model.Dices[i].Dice5.ToString() + ".png";
+            }
+            model.Dices.Add(new DicesVm());
+
+            model.Dices[model.Lap].GameId = gameId;
+            model.Dices[model.Lap].Lap = model.Lap;
+            model.Dices[model.Lap].Round = model.Round;
+            model.Dices[model.Lap].PlayerId = model.CurrentPlayer.PlayerId;
+
+            Random generator = new Random();
+
+            if (model.Dices[model.Lap - 1].Dice1IsBlocked)
+            {
+                model.Dices[model.Lap].Dice1 = model.Dices[model.Lap - 1].Dice1;
+            }
+            else
+            {
+                model.Dices[model.Lap].Dice1 = generator.Next(1, 7);
+            }
+            model.Dices[model.Lap].Dice1ImgPath = "/Images/" + model.Dices[model.Lap].Dice1.ToString() + ".png";
+            if (model.Dices[model.Lap - 1].Dice2IsBlocked)
+            {
+                model.Dices[model.Lap].Dice2 = model.Dices[model.Lap - 1].Dice2;
+            }
+            else
+            {
+                model.Dices[model.Lap].Dice2 = generator.Next(1, 7);
+            }
+            model.Dices[model.Lap].Dice2ImgPath = "/Images/" + model.Dices[model.Lap].Dice2.ToString() + ".png";
+            if (model.Dices[model.Lap - 1].Dice3IsBlocked)
+            {
+                model.Dices[model.Lap].Dice3 = model.Dices[model.Lap - 1].Dice3;
+            }
+            else
+            {
+                model.Dices[model.Lap].Dice3 = generator.Next(1, 7);
+            }
+            model.Dices[model.Lap].Dice3ImgPath = "/Images/" + model.Dices[model.Lap].Dice3.ToString() + ".png";
+            if (model.Dices[model.Lap - 1].Dice4IsBlocked)
+            {
+                model.Dices[model.Lap].Dice4 = model.Dices[model.Lap - 1].Dice4;
+            }
+            else
+            {
+                model.Dices[model.Lap].Dice4 = generator.Next(1, 7);
+            }
+            model.Dices[model.Lap].Dice4ImgPath = "/Images/" + model.Dices[model.Lap].Dice4.ToString() + ".png";
+            if (model.Dices[model.Lap - 1].Dice5IsBlocked)
+            {
+                model.Dices[model.Lap].Dice5 = model.Dices[model.Lap - 1].Dice5;
+            }
+            else
+            {
+                model.Dices[model.Lap].Dice5 = generator.Next(1, 7);
+            }
+            model.Dices[model.Lap].Dice5ImgPath = "/Images/" + model.Dices[model.Lap].Dice5.ToString() + ".png";
+            model.OptionalValues = new PlayerValueVM();
+            model.OptionalValues = CountOptionalValues(model.Dices[model.Lap]);
+            GetDicesToSave(model.Dices[model.Lap]);
+            return model;
         }
     }
 }

@@ -138,26 +138,32 @@ namespace DiceMVC.Infrastructure.Repositories
                 case "Ones":
                     _context.Entry(playerValue).Property("Ones").IsModified = true;
                     _context.Entry(playerValue).Property("OnesIsUsed").IsModified = true;
+                    _context.Entry(playerValue).Property("Bonus").IsModified = true;
                     break;
                 case "Twos":
                     _context.Entry(playerValue).Property("Twos").IsModified = true;
                     _context.Entry(playerValue).Property("TwosIsUsed").IsModified = true;
+                    _context.Entry(playerValue).Property("Bonus").IsModified = true;
                     break;
                 case "Threes":
                     _context.Entry(playerValue).Property("Threes").IsModified = true;
                     _context.Entry(playerValue).Property("ThreesIsUsed").IsModified = true;
+                    _context.Entry(playerValue).Property("Bonus").IsModified = true;
                     break;
                 case "Fours":
                     _context.Entry(playerValue).Property("Fours").IsModified = true;
                     _context.Entry(playerValue).Property("FoursIsUsed").IsModified = true;
+                    _context.Entry(playerValue).Property("Bonus").IsModified = true;
                     break;
                 case "Fives":
                     _context.Entry(playerValue).Property("Fives").IsModified = true;
                     _context.Entry(playerValue).Property("FivesIsUsed").IsModified = true;
+                    _context.Entry(playerValue).Property("Bonus").IsModified = true;
                     break;
                 case "Sixs":
                     _context.Entry(playerValue).Property("Sixs").IsModified = true;
                     _context.Entry(playerValue).Property("SixsIsUsed").IsModified = true;
+                    _context.Entry(playerValue).Property("Bonus").IsModified = true;
                     break;
                 case "Triple":
                     _context.Entry(playerValue).Property("Triple").IsModified = true;

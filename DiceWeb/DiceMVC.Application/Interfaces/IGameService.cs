@@ -29,6 +29,8 @@ namespace DiceMVC.Application.Interfaces
         void UpdateValue(UpdateValuesVm playerValues);
         int GetPlayerTurn(int gameId, int playerId);
         int GetPlayersCount(int gameId);
+        PlaygameVm TurnDices(int gameId);
+
 
     }
 }
