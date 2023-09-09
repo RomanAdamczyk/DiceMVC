@@ -207,7 +207,7 @@ namespace DiceMVC.Controllers
                 }
             }
             
-                 //nowy gracz
+                 
                 return View();
         }
 
