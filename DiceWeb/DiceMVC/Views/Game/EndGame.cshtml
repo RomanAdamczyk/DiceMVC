@@ -1,23 +1,46 @@
-﻿@model DiceMVC.Application.ViewModels.Game.PlaygameVm
+﻿@model IEnumerable<DiceMVC.Application.ViewModels.Game.PlayerScoreVm>
 
 @{
     ViewData["Title"] = "EndGame";
 }
 
-<h1>EndGame</h1>
 <div id="header">
-    Zwyciecięzca 
+    Koniec gry
 </div>
-<div>
-    @foreach (var player in Model.Players)
-    {
+<div id="content">
+<table border="1">
+    <thead>
         <tr>
-            <td>
-                @Html.DisplayFor(pl => player.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(sc => player.Total)
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.Place)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Total)
+            </th>
         </tr>
-    }
-</div>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Place)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Total)
+                </td>
+                
+            </tr>
+        }
+    </tbody>
+</table>
+    </div>
+<form asp-action="Index" asp-controller="Home" method="post">
+    <input type="submit" name="endGame" value="Powrót do menu" style="text-align:center" />
+</form>

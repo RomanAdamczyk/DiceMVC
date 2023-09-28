@@ -12,7 +12,6 @@ namespace DiceMVC.Application.Interfaces
     public interface IGameService
     {
         int AddGame(GetPlayerCountVm game);                             //add game to database and take its ID
-
         ListOfSavedGamesVm GetGamesToList();                            //get active games and their players from database
         void EndingCreate(int gameId);                                  //prepare game to play (get game as active, set first player)
         Game GetGameById(int gameId);                                   //get game with gameId from database
@@ -31,7 +30,8 @@ namespace DiceMVC.Application.Interfaces
         int GetPlayersCount(int gameId);                                //get players count of the game from data base
         PlaygameVm TurnDices(int gameId);                               //draw dices
         PlayerValue SetBonus(PlayerValue values);                       //take a bunus
-
+        List<PlayerScoreVm> WhichPlace(List<PlayerScoreVm> players);    //set the place numbers of players
+        void EndGame(int gameId);                                       //set IsActive as "false" in the game
 
     }
 }

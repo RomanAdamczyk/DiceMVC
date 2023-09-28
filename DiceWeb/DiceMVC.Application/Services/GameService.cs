@@ -43,7 +43,7 @@ namespace DiceMVC.Application.Services
             }
 
             gameList.Games = games;                                                         //set active games to object "gameList"
-            gameList.Count = games.Count;                                                   //set count of acvtive games to object "gameist"
+            gameList.Count = games.Count;                                                   //set count of acvtive games to object "gameList"
             
             return gameList;                                                                //return obcject gameList
         }
@@ -279,6 +279,7 @@ namespace DiceMVC.Application.Services
             var game = GetGameById(gameId);                                                             //get the game
             model.CurrentPlayer = GetCurrentPlayerValue(gameId, game.CurrentPlayerId);                  //get points of the player and set as the CurrentPlayer
             model.Players = GetPlayersScores(gameId);                                                   //get sum of points of all players of the game and set as the Players
+            model.Players = WhichPlace(model.Players);                                                  //set the place numbers of players
             model.Round = game.CurrentRound;                                                            //set Round as CurrentRound
             model.Lap = game.CurrentLap;                                                                //set Lap as CurrentLap
             model.Dices = new List<DicesVm>();                                                          //create new List of Dices
@@ -361,6 +362,25 @@ namespace DiceMVC.Application.Services
             values.Total += 50;                             //set values.Bonus as 50 ...
             values.Bonus = 50;                              //add bonus to values.Total (sum of ponits)
             return values;                                  //return values
+        }
+        public List<PlayerScoreVm> WhichPlace(List<PlayerScoreVm> players)  //set the place numbers of players
+        {
+            int place = 0;                                                  //set 1st place (will increace)
+            int score = -1;                                                 //set the "score" as a score like no other players has (-1)
+            foreach(PlayerScoreVm player in players)                        //for all players...
+            {
+                if (score != player.Total)                                  //...if the "score" does not equal player,s score...
+                {
+                    place++;                                                //...increace place
+                    score = player.Total;
+                }
+                player.Place = place;                                       //player's place equals "place"
+            }
+            return players;                                                 //return players
+        }
+        public void EndGame(int gameId)                                     //set IsActive as "false" in the game
+        {
+            _gameRepo.EndGameRep(gameId);                                   //set IsActive as "false" in the game
         }
     }
 }

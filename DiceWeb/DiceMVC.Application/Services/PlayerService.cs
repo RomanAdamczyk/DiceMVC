@@ -23,78 +23,51 @@ namespace DiceMVC.Application.Services
             _gameRepo = gameRepo;
             _mapper = mapper;
         }
-        public int AddNewPlayer(NewPlayerVm player)
+        public int AddNewPlayer(NewPlayerVm player)                                   //add new player, create approprate items in data base and get id of the game
         {
-            var pl = _mapper.Map<Player>(player);
-            var id = _playerRepo.AddPlayer(pl);
-            var game = _gameRepo.GetGame(player.GameId);
-            //  player = _mapper.Map<NewPlayerVm>(game);
+            var pl = _mapper.Map<Player>(player);                                     //map game from NewPlayerVm to Player
+            var id = _playerRepo.AddPlayer(pl);                                       //add player to database and get its id
+            var game = _gameRepo.GetGame(player.GameId);                              //get the game from data base
 
-            player.PlayerCount = game.PlayerCount;
-            player.PlayerNo = game.CurrentPlayerId;
-            var playerValue = new PlayerValue(id, player.GameId);
-            _playerRepo.AddPlayerValue(playerValue);
-            var playersTurn = new PlayersTurn(player.GameId, id, player.PlayerNo);
-            _playerRepo.AddPlayersTurn(playersTurn);
-            var gamePlayer = new GamePlayer(player.GameId, pl.Id);
-            _playerRepo.AddGamePlayer(gamePlayer);
-            game.CurrentPlayerId += 1;
-            _gameRepo.UpdateGamePlayerNo(game);
-         //   AddPlayerToGame(id, player.GameId);
-            return id;
+            player.PlayerCount = game.PlayerCount;                                    //set PlayerCount as count of players from the game
+            player.PlayerNo = game.CurrentPlayerId;                                   //set PlayerNo as id of the current player
+            var playerValue = new PlayerValue(id, player.GameId);                     //create new PlayerValue and set its GameId and PlayerId
+            _playerRepo.AddPlayerValue(playerValue);                                  //add PlayerValue to data base
+            var playersTurn = new PlayersTurn(player.GameId, id, player.PlayerNo);    //create new PlayerTurn and set its GameId and PlayerId
+            _playerRepo.AddPlayersTurn(playersTurn);                                  //add PlayerTurn to data base
+            var gamePlayer = new GamePlayer(player.GameId, pl.Id);                    //create new GamePlayer and set its GameId and PlayerId
+            _playerRepo.AddGamePlayer(gamePlayer);                                    //add GamePlayer to data base
+            game.CurrentPlayerId += 1;                                                //increase CurrentPlayerId
+            _gameRepo.UpdateGamePlayerNo(game);                                       //save Id of the current player in data base
+            return id;                                                                //return Id of the game
         }
-        public ListOfPlayersVm AddPlayerToGame(ListOfPlayersVm model)
+        public ListOfPlayersVm AddPlayerToGame(ListOfPlayersVm model)                           //add chosen player to the game, create approprate items in data base and get id of the game
         {
-            var game = _gameRepo.GetGame(model.GameId);
-            int playerId = Int32.Parse(model.ChoosePlayer);
-            var playerValue = new PlayerValue(playerId, model.GameId);
-            _playerRepo.AddPlayerValue(playerValue);
-            var playersTurn = new PlayersTurn(model.GameId, playerId, game.CurrentPlayerId);
-            _playerRepo.AddPlayersTurn(playersTurn);
-            var gamePlayer = new GamePlayer(model.GameId, playerId);
-            _playerRepo.AddGamePlayer(gamePlayer);
-            game.CurrentPlayerId += 1;
-            _gameRepo.UpdateGamePlayerNo(game);
-            model.Count = game.PlayerCount;
-            model.PlayerNo = game.CurrentPlayerId;
-            return model;
+            var game = _gameRepo.GetGame(model.GameId);                                         //get the game from data base
+            int playerId = Int32.Parse(model.ChoosePlayer);                                     //get chosen player's id and convert to int 
+            var playerValue = new PlayerValue(playerId, model.GameId);                          //create new PlayerValue and set its GameId and PlayerId
+            _playerRepo.AddPlayerValue(playerValue);                                            //add PlayerValue to data base
+            var playersTurn = new PlayersTurn(model.GameId, playerId, game.CurrentPlayerId);    //create new PlayerTurn and set its GameId and PlayerId
+            _playerRepo.AddPlayersTurn(playersTurn);                                            //add PlayerTurn to data base
+            var gamePlayer = new GamePlayer(model.GameId, playerId);                            //create new GamePlayer and set its GameId and PlayerId
+            _playerRepo.AddGamePlayer(gamePlayer);                                              //add GamePlayer to data base
+            game.CurrentPlayerId += 1;                                                          //increase CurrentPlayerId
+            _gameRepo.UpdateGamePlayerNo(game);                                                 //save Id of the current player in data base
+            model.Count = game.PlayerCount;                                                     //get Count as count of players
+            model.PlayerNo = game.CurrentPlayerId;                                              //get PlayerNo as id of current player
+            return model;                                                                       //return model (ListofPlayersVm)
 
         }
-        //public PlayerValue AddPlayerValues(int playerId, int gameId)
-        //{
-        //    PlayerValue playerValue = new PlayerValue(playerId, gameId);
-        //    return playerValue;
-        //}
-        //public PlayersTurn AddPlayersTurns(int gameId, int playerId, int turnNo)
-        //{
-        //    PlayersTurn playersTurn = new PlayersTurn(gameId, playerId, turnNo);
-        //    return playersTurn;
-        //}
-
-        //public PlayerValueVM ShowPlayerValues(int playerId)
-        //{
-        //    var player = _playerRepo.GetPlayerValue(playerId);
-        //    var playerVm = _mapper.Map<PlayerValueVM>(player);
-        //    return playerVm;
-        //}
-        public string NewOrLoadPlayer(NewOrLoadPlayerVm newOrLoadPlayerVm)
+        public ListOfPlayersVm GetPlayersForList()                                              //get list of all players and convert to ListofPlayersVm
         {
-            return newOrLoadPlayerVm.CreateNewPlayer;
-        }
-        public int GetGameId(NewOrLoadPlayerVm newOrLoadPlayerVm)
-        {
-            return newOrLoadPlayerVm.IdGame;
-        }
-        public ListOfPlayersVm GetPlayersForList()
-        {
-            var players = _playerRepo.GetAllPlayers()
-                .ProjectTo<NewPlayerVm>(_mapper.ConfigurationProvider).ToList();
-            var playersList = new ListOfPlayersVm()
+            var players = _playerRepo.GetAllPlayers()                                           //get all players from data base...
+                .ProjectTo<NewPlayerVm>(_mapper.ConfigurationProvider).ToList();                //...and convert to List of NewPlayerVm
+            var playersList = new ListOfPlayersVm()                                             //create a new ListOfPlayersVm
             {
-                Players = players,
-                Count = players.Count(),
+                Players = players,                                                              //set Players as List of players
+                Count = players.Count(),                                                        //set Count as count of players
             };
-            return playersList; 
+            return playersList;                                                                 //return playerList
         }
     }
 }

@@ -4,21 +4,14 @@
     ViewData["Title"] = "LoadPlayer";
 }
 
-<h1>LoadPlayer</h1>
+<h4>Wybierz gracza</h4>
 
 <div>
     <form asp-action="LoadPlayer" asp-controller="Player" method="post">
         <input type="hidden" asp-for="GameId"  value="@Model.GameId" />
         <input type="hidden" asp-for="PlayerNo"  />
-        <table class>
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayFor(model => model.Count)
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
+        <table>
+
             <tbody>
                 @foreach (var item in Model.Players)
                 {

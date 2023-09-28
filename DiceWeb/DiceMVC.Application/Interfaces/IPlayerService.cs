@@ -10,15 +10,9 @@ namespace DiceMVC.Application.Interfaces
 {
     public interface IPlayerService
     {
-       // PlayerValueVM ShowPlayerValues(int playerId);
-        int AddNewPlayer(NewPlayerVm player);
-        //PlayerValue AddPlayerValues(int playerId, int GameId);
-        string NewOrLoadPlayer(NewOrLoadPlayerVm newOrLoadPlayerVm);
-        int GetGameId(NewOrLoadPlayerVm newOrLoadPlayerVm);
-        //PlayersTurn AddPlayersTurns(int gameId, int playerId, int turnNo);
-        ListOfPlayersVm GetPlayersForList();
-        ListOfPlayersVm AddPlayerToGame(ListOfPlayersVm model);
+        int AddNewPlayer(NewPlayerVm player);                       //add new player, create approprate items in data base and get id of the game
+        ListOfPlayersVm GetPlayersForList();                        //add chosen player to the game, create approprate items in data base and get id of the game
+        ListOfPlayersVm AddPlayerToGame(ListOfPlayersVm model);     //get list of all players and convert to ListofPlayersVm
 
-        
     }
 }

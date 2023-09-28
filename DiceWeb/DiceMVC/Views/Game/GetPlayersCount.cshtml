@@ -4,16 +4,14 @@
     ViewData["Title"] = "GetPlayersCount";
 }
 
-<h1>GetPlayersCount</h1>
+<h4>Podaj liczbę graczy</h4>
 
-<h4>GetPlayerCountVm</h4>
-<hr />
 <div >
 
         <form asp-action="GetPlayersCount">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="PlayerCount" class="control-label"></label>
+       <!--         <label asp-for="PlayerCount" class="control-label"></label> -->
                 <input asp-for="PlayerCount" class="form-control" />
                 <span asp-validation-for="PlayerCount" class="text-danger"></span>
             </div>

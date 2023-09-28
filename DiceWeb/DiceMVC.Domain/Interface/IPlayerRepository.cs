@@ -12,13 +12,13 @@ namespace DiceMVC.Domain.Interface
     {
       //  PlayerValue GetPlayerValue(int playerId);
       //  public Player GetPlayer(int playerId);
-        IQueryable<PlayerValue> GetAllPlayersValues(int gameId);
-        int AddPlayer(Player player);
-        void AddPlayerValue(PlayerValue playerValue);
-        void AddPlayersTurn(PlayersTurn playersTurn);
-        void AddGamePlayer(GamePlayer gamePlayer);
-        IQueryable<Player> GetAllPlayers();
-        IQueryable<PlayerValue> GetPlayerValue(int gameId, int playerId);
+        IQueryable<PlayerValue> GetAllPlayersValues(int gameId);            //get value from PlayerValues from the game and sort by scores descending
+        int AddPlayer(Player player);                                       //add player to data base and return player's id
+        void AddPlayerValue(PlayerValue playerValue);                       //add PlayerValue to data base
+        void AddPlayersTurn(PlayersTurn playersTurn);                       //add PlayerTurn to database
+        void AddGamePlayer(GamePlayer gamePlayer);                          //add gamePlayer to data base
+        IQueryable<Player> GetAllPlayers();                                 //get all players from data base
+        IQueryable<PlayerValue> GetPlayerValue(int gameId, int playerId);   //get value from the data base for the game for the players 
 
 
     }
