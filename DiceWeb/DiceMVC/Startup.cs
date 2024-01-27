@@ -48,7 +48,7 @@ namespace DiceMVC
 
             services.AddApplication();
             services.AddInfrastructure();
-            services.AddControllersWithViews().AddFluentValidation(fv => fv.RunDefaultMvcValidationAfterFluentValidationExecutes = false);
+            //services.AddControllersWithViews().AddFluentValidation(fv => fv.RunDefaultMvcValidationAfterFluentValidationExecutes = false);
             services.AddRazorPages();
             services.AddTransient<IValidator<NewPlayerVm>, NewPlayerValidator>();
             services.AddTransient<IValidator<GetPlayerCountVm>, GetPlayerCountValidator>();
