@@ -31,7 +31,7 @@ namespace DiceMVC.Controllers
                 return RedirectToAction("NewOrLoadPlayer", new {idGame = model.GameId });       //...if player number is lower than html with choice new or saved player
             else                                                                                //...if player number is equal number of players
             {   _gameService.EndingCreate(model.GameId);                                        //create approprate items in data base and set approprate values
-                return RedirectToAction("Game", "PlayGame", new { idGame = model.GameId });     //http with the game
+                return RedirectToAction("GamePlay", "Game", new { idGame = model.GameId });     //http with the game
             }
         }
         [HttpGet]
