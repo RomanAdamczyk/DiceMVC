@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "DiceMVC.Application": {
+      "commandName": "Project"
+    },
+    "IIS": {
+      "commandName": "Project"
+    }
+  }
+}
