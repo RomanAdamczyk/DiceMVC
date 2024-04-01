@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DiceMVC.Infrastructure.Migrations
 {
-    [DbContext(typeof(Context))]
+    [DbContext(typeof(WorkContext))]
     partial class ContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

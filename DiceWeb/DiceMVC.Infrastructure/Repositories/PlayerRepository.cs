@@ -10,8 +10,8 @@ namespace DiceMVC.Infrastructure.Repositories
 {
     public class PlayerRepository : IPlayerRepository
     {
-        private readonly Context _context;
-        public PlayerRepository(Context context)
+        private readonly WorkContext _context;
+        public PlayerRepository(WorkContext context)
         {
             _context = context;
         }

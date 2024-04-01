@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DiceMVC.Infrastructure
 {
-    public class Context: IdentityDbContext
+    public class WorkContext: IdentityDbContext
     {
         public DbSet<PlayerValue> PlayerValues { get; set; }
         public DbSet<Player> Players { get; set; }
@@ -19,7 +19,7 @@ namespace DiceMVC.Infrastructure
         public DbSet<GamePlayer> GamePlayer { get; set; }
         public DbSet<PlayersTurn> PlayersTurns { get; set; }
 
-        public  Context(DbContextOptions options): base(options)
+        public  WorkContext(DbContextOptions options): base(options)
         {
         }
         protected override void OnModelCreating(ModelBuilder builder)

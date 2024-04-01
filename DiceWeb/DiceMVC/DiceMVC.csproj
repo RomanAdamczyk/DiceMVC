@@ -29,4 +29,8 @@
     <ProjectReference Include="..\DiceMVC.Infrastructure\DiceMVC.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Identity\Data\" />
+  </ItemGroup>
+
 </Project>

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DiceMVC.Infrastructure.Migrations
 {
-    [DbContext(typeof(Context))]
+    [DbContext(typeof(WorkContext))]
     [Migration("20240130180939_InitialCreate")]
     partial class InitialCreate
     {
