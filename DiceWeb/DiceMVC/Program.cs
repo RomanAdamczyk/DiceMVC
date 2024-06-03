@@ -16,6 +16,7 @@ using DiceMVC.Application.ViewModels.Player;
 using FluentValidation;
 using static DiceMVC.Application.ViewModels.Game.GetPlayerCountVm;
 using DiceMVC.Application;
+using System.Configuration;
 
 namespace DiceMVC
 {
@@ -42,6 +43,23 @@ namespace DiceMVC
             builder.Services.AddTransient<IValidator<NewPlayerVm>, NewPlayerValidator>();
             builder.Services.AddTransient<IValidator<GetPlayerCountVm>, GetPlayerCountValidator>();
 
+            builder.Services.Configure<IdentityOptions>(option =>   //register options
+            {
+                option.Password.RequireDigit = true;                //require number in password
+                option.Password.RequireLowercase = true;            //require lowercase in password
+                option.Password.RequireUppercase = true;            //require uppercase in password
+                option.Password.RequiredLength = 8;                 //require min length of password - 8
+
+                option.SignIn.RequireConfirmedEmail = false;        //email confirmation disabled
+                option.User.RequireUniqueEmail = true;              //require unique email
+
+            });
+
+            //builder.Services.AddAuthentication().AddGoogle(option =>
+            //{
+            //    option.ClientId = builder.Configuration["Authentication:Google:ClientId:"];
+            //    option.ClientSecret = builder.Configuration["Authentication:Google:Secret:"];
+            //});
             var app = builder.Build();
             //Configure the HTTP request pipline
             if (!app.Environment.IsDevelopment()) 
@@ -56,6 +74,7 @@ namespace DiceMVC
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
