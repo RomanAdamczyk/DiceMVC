@@ -57,8 +57,8 @@ namespace DiceMVC
 
             //builder.Services.AddAuthentication().AddGoogle(option =>
             //{
-            //    option.ClientId = builder.Configuration["Authentication:Google:ClientId:"];
-            //    option.ClientSecret = builder.Configuration["Authentication:Google:Secret:"];
+            //    option.ClientId = builder.Configuration["Authentication:Google:ClientId"];
+            //    option.ClientSecret = builder.Configuration["Authentication:Google:Secret"];
             //});
             var app = builder.Build();
             //Configure the HTTP request pipline
@@ -80,6 +80,13 @@ namespace DiceMVC
             app.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            // Add routing for areas (by chatgpt)
+            app.MapControllerRoute(
+                name: "areas",
+                pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+            // Add routing for Razor Pages (by chatgpt)
+            app.MapRazorPages();
 
             app.Run();
         }
